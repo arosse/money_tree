@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simulation Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Simulation Dashboard</h1>
+    </header>
+
+    <main>
+        <section id="data-section">
+            <h2>Current Data</h2>
+            <p id="data-value">Loading data...</p>
+            <button onclick="refreshData()">Refresh Data</button>
+        </section>
+
+        <section id="chart-section">
+            <h2>Data</h2>
+			<div id="plotly-graph"></div>
+        </section>
+		
+    </main>
+	
+	
+	
+	
+
+    <footer>
+        <p>Footer Text</p>
+    </footer>
+	
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+
+	<script>
+		function refreshData() {
+			// Replace 'New Data' with the actual data you want to display
+			document.getElementById("data-value").textContent = "New Data";
+		}
+	</script>
+	
+	<script>
+		var trace1 = {
+		  x: [1, 2, 3, 4],
+		  y: [10, 15, 13, 17],
+		  type: 'scatter'
+		};
+
+		var data = [trace1];
+
+		Plotly.newPlot('plotly-graph', data);
+	</script>
+
+</body>
+</html>
