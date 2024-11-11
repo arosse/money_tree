@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>Simulation Dashboard</h1>
+        <h1>Dashboard</h1>
     </header>
 
     <main>
@@ -16,11 +16,18 @@
             <h2>Current Data</h2>
             <p id="data-value">Loading data...</p>
             <button onclick="refreshData()">Refresh Data</button>
+			<br><br>
         </section>
 
         <section id="chart-section">
-            <h2>Data</h2>
-			<div id="plotly-graph"></div>
+            <h2>Data 01</h2>
+        <div id="plotly-graph-1" class="plotly-graph"></div>
+        
+        <h2>Data 02</h2>
+        <div id="plotly-graph-2" class="plotly-graph"></div>
+        
+        <h2>Data 03</h2>
+        <div id="plotly-graph-3" class="plotly-graph"></div>
         </section>
 		
     </main>
@@ -61,7 +68,51 @@
 			}
 		};
 
-		Plotly.newPlot('plotly-graph', data, layout);
+		Plotly.newPlot('plotly-graph-1', data, layout);
+	</script>
+	
+	<script>
+		var trace1 = {
+		  x: [0, 5, 8, 10],
+		  y: [7, 15, 10, 12],
+		  type: 'scatter'
+		};
+
+		var data = [trace1];
+		
+		// Define layout with minimal margins
+		var layout = {
+			margin: {
+				t: 10,  // Top margin
+				r: 20,  // Right margin
+				b: 30,  // Bottom margin
+				l: 20   // Left margin
+			}
+		};
+
+		Plotly.newPlot('plotly-graph-2', data, layout);
+	</script>
+	
+	<script>
+		var trace1 = {
+		  x: [1, 2, 3, 4],
+		  y: [1, 2, 1, 2.5],
+		  type: 'scatter'
+		};
+
+		var data = [trace1];
+		
+		// Define layout with minimal margins
+		var layout = {
+			margin: {
+				t: 10,  // Top margin
+				r: 20,  // Right margin
+				b: 30,  // Bottom margin
+				l: 20   // Left margin
+			}
+		};
+
+		Plotly.newPlot('plotly-graph-3', data, layout);
 	</script>
 
 </body>
