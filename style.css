@@ -31,7 +31,7 @@ main {
 	text-align: center;
     padding: 20px;
 	min-width: 300px;
-    margin:20px max(calc((100% - 1200px)/2), 10px);
+    margin:20px max(calc((100% - 1200px)/2), 5px);
 }
 
 /* Section styling */
