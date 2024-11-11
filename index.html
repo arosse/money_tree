@@ -50,8 +50,18 @@
 		};
 
 		var data = [trace1];
+		
+		// Define layout with minimal margins
+		var layout = {
+			margin: {
+				t: 10,  // Top margin
+				r: 20,  // Right margin
+				b: 30,  // Bottom margin
+				l: 20   // Left margin
+			}
+		};
 
-		Plotly.newPlot('plotly-graph', data);
+		Plotly.newPlot('plotly-graph', data, layout);
 	</script>
 
 </body>
