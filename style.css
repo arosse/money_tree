@@ -42,7 +42,7 @@ section {
 /* Plotly graph container styling */
 .plotly-graph {
   width: 100%; 
-  height: max(450px, 25vh);
+  height: max(250px, 25vh);
   border: 1px solid #ccc;
   margin: 0px;
   margin-top: 5px;
