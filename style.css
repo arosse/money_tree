@@ -30,8 +30,8 @@ main {
     flex: 1;
 	text-align: center;
     padding: 20px;
-	min-width: 350px;
-    margin:20px calc((100% - 1000px)/2);
+	min-width: 300px;
+    margin:20px max(calc((100% - 1200px)/2), 20px);
 }
 
 /* Section styling */
