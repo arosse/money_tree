@@ -21,20 +21,17 @@
 
         <section id="chart-section">
             <h2>Data 01</h2>
-        <div id="plotly-graph-1" class="plotly-graph"></div>
+			<div id="plotly-graph-1" class="plotly-graph"></div>
         
-        <h2>Data 02</h2>
-        <div id="plotly-graph-2" class="plotly-graph"></div>
-        
-        <h2>Data 03</h2>
-        <div id="plotly-graph-3" class="plotly-graph"></div>
+			<h2>Data 02</h2>
+			<div id="plotly-graph-2" class="plotly-graph"></div>
+			
+			<h2>Data 03</h2>
+			<div id="plotly-graph-3" class="plotly-graph"></div>
         </section>
 		
     </main>
-	
-	
-	
-	
+
 
     <footer>
         <p>Footer Text</p>
@@ -47,73 +44,44 @@
 			// Replace 'New Data' with the actual data you want to display
 			document.getElementById("data-value").textContent = "New Data";
 		}
-	</script>
-	
-	<script>
-		var trace1 = {
-		  x: [1, 2, 3, 4],
-		  y: [10, 15, 13, 17],
-		  type: 'scatter'
-		};
-
-		var data = [trace1];
 		
-		// Define layout with minimal margins
-		var layout = {
-			margin: {
-				t: 10,  // Top margin
-				r: 20,  // Right margin
-				b: 30,  // Bottom margin
-				l: 20   // Left margin
-			}
-		};
-
-		Plotly.newPlot('plotly-graph-1', data, layout);
-	</script>
-	
-	<script>
-		var trace1 = {
-		  x: [0, 5, 8, 10],
-		  y: [7, 15, 10, 12],
-		  type: 'scatter'
-		};
-
-		var data = [trace1];
+		// Graph data for each chart
+        const graphData = [
+            { x: [1, 2, 3, 4], y: [10, 15, 13, 17], title: "Data 01" },
+            { x: [0, 5, 8, 10], y: [7, 15, 10, 12], title: "Data 02" },
+            { x: [1, 2, 3, 4], y: [1, 2, 1, 2.5], title: "Data 03" }
+        ];
 		
-		// Define layout with minimal margins
-		var layout = {
-			margin: {
-				t: 10,  // Top margin
-				r: 20,  // Right margin
-				b: 30,  // Bottom margin
-				l: 20   // Left margin
-			}
-		};
-
-		Plotly.newPlot('plotly-graph-2', data, layout);
-	</script>
-	
-	<script>
-		var trace1 = {
-		  x: [1, 2, 3, 4],
-		  y: [1, 2, 1, 2.5],
-		  type: 'scatter'
-		};
-
-		var data = [trace1];
+		// Reusable layout and config
+        const layout = {
+            margin: {
+                t: 10,  // Top margin
+                r: 20,  // Right margin
+                b: 30,  // Bottom margin
+                l: 20   // Left margin
+            }
+        };
 		
-		// Define layout with minimal margins
-		var layout = {
-			margin: {
-				t: 10,  // Top margin
-				r: 20,  // Right margin
-				b: 30,  // Bottom margin
-				l: 20   // Left margin
-			}
-		};
+		const config = {
+            modeBarButtonsToRemove: ['toImage', 'select2d', 'lasso2d', 'hoverClosestCartesian', 'toggleSpikelines', 'hoverCompareCartesian'],
+            displaylogo: false
+        };
 
-		Plotly.newPlot('plotly-graph-3', data, layout);
-	</script>
+		// Function to initialize each Plotly graph
+        function initPlotlyGraph(elementId, dataX, dataY) {
+            const trace = {
+                x: dataX,
+                y: dataY,
+                type: 'scatter'
+            };
+            Plotly.newPlot(elementId, [trace], layout, config);
+        }
+
+        // Loop through each graph and initialize it
+        graphData.forEach((data, index) => {
+            initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y);
+        });
+    </script>
 
 </body>
 </html>
