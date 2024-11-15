@@ -42,22 +42,7 @@
 	<!-- Include the Google API Client Library -->
     <script src="https://apis.google.com/js/api.js"></script>
 
-	<script>
-		// Reusable layout and config
-        const layout = {
-            margin: {
-                t: 10,  // Top margin
-                r: 20,  // Right margin
-                b: 30,  // Bottom margin
-                l: 20   // Left margin
-            }
-        };
-		
-		const config = {
-            modeBarButtonsToRemove: ['toImage', 'select2d', 'lasso2d', 'hoverClosestCartesian', 'toggleSpikelines', 'hoverCompareCartesian'],
-            displaylogo: false
-        };
-		
+	<script>			
 		// Your Google Drive file ID
         const fileId = '1_KDHm_7XmO9Z6xv2BpGebG-QHEN2OAB5';
 		
@@ -75,7 +60,7 @@
             gapi.client.request({
                 path: `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, // Use the file ID to fetch the content
             }).then((response) => {
-                const data = response.body; // This should be your JSON file content
+                const data = response.body; // This should be the JSON file content
                 updateGraphs(data);
             }, (error) => {
                 console.error('Error fetching data from Google Drive:', error);
@@ -98,9 +83,9 @@
             const layout = {
                 margin: {
                     t: 10,  // Top margin
-                    r: 20,  // Right margin
+                    r: 15,  // Right margin
                     b: 30,  // Bottom margin
-                    l: 20   // Left margin
+                    l: 30   // Left margin
                 }
             };
 
