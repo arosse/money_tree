@@ -38,6 +38,9 @@
     </footer>
 	
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+	
+	<!-- Include the Google API Client Library -->
+    <script src="https://apis.google.com/js/api.js"></script>
 
 	<script>
 		// Reusable layout and config
@@ -54,39 +57,76 @@
             modeBarButtonsToRemove: ['toImage', 'select2d', 'lasso2d', 'hoverClosestCartesian', 'toggleSpikelines', 'hoverCompareCartesian'],
             displaylogo: false
         };
+		
+		// Your Google Drive file ID
+        const fileId = '1_KDHm_7XmO9Z6xv2BpGebG-QHEN2OAB5';
+		
+		// Function to load the Google API client
+        function loadClient() {
+            gapi.client.init({
+                apiKey: 'AIzaSyBnNXH0pYSGvoI1DWrRUih4JdGgv1OEGlg',
+            }).then(() => {
+                fetchData();
+            });
+        }
 
-		// Function to fetch JSON data from Google Drive
-        async function fetchGraphData() {
-            const fileUrl = "https://drive.google.com/uc?id=1_KDHm_7XmO9Z6xv2BpGebG-QHEN2OAB5&export=download";
-            try {
-                const response = await fetch(fileUrl);
-                if (!response.ok) throw new Error("Failed to fetch data");
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error("Error fetching graph data:", error);
-                return null;
-            }
+		// Function to fetch the JSON data from Google Drive
+        function fetchData() {
+            gapi.client.request({
+                path: `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, // Use the file ID to fetch the content
+            }).then((response) => {
+                const data = response.body; // This should be your JSON file content
+                updateGraphs(data);
+            }, (error) => {
+                console.error('Error fetching data from Google Drive:', error);
+            });
         }
 		
-		// Main function to load and display graphs
-        async function loadGraphs() {
-            const graphData = await fetchGraphData();
-            if (!graphData) {
-                document.getElementById("data-value").textContent = "Error loading data";
-                return;
+		// Function to update the graphs with the new data
+        function updateGraphs(data) {
+            // Assuming the data is in JSON format like you mentioned
+            const jsonData = JSON.parse(data); 
+
+            // Data for each chart
+            const graphData = [
+                { x: jsonData.x1, y: jsonData.y1, title: "Data 01" },
+                { x: jsonData.x2, y: jsonData.y2, title: "Data 02" },
+                { x: jsonData.x3, y: jsonData.y3, title: "Data 03" }
+            ];
+
+            // Reusable layout and config for Plotly
+            const layout = {
+                margin: {
+                    t: 10,  // Top margin
+                    r: 20,  // Right margin
+                    b: 30,  // Bottom margin
+                    l: 20   // Left margin
+                }
+            };
+
+            const config = {
+                modeBarButtonsToRemove: ['toImage', 'select2d', 'lasso2d', 'hoverClosestCartesian', 'toggleSpikelines', 'hoverCompareCartesian'],
+                displaylogo: false
+            };
+
+            // Function to initialize each Plotly graph
+            function initPlotlyGraph(elementId, dataX, dataY) {
+                const trace = {
+                    x: dataX,
+                    y: dataY,
+                    type: 'scatter'
+                };
+                Plotly.newPlot(elementId, [trace], layout, config);
             }
 
-            // Update each graph with data from JSON
-            initPlotlyGraph("plotly-graph-1", graphData.x1, graphData.y1);
-            initPlotlyGraph("plotly-graph-2", graphData.x2, graphData.y2);
-            initPlotlyGraph("plotly-graph-3", graphData.x3, graphData.y3);
-
-            document.getElementById("data-value").textContent = "Data loaded successfully";
+            // Loop through each graph and initialize it
+            graphData.forEach((data, index) => {
+                initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y);
+            });
         }
 
-        // Load graphs on page load
-        loadGraphs();
+        // Load the client after the API script has loaded
+        gapi.load('client', loadClient);
 		
     </script>
 
