@@ -40,18 +40,6 @@
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
 
 	<script>
-		function refreshData() {
-			// Replace 'New Data' with the actual data you want to display
-			document.getElementById("data-value").textContent = "New Data";
-		}
-		
-		// Graph data for each chart
-        const graphData = [
-            { x: [1, 2, 3, 4], y: [10, 15, 13, 17], title: "Data 01" },
-            { x: [0, 5, 8, 10], y: [7, 15, 10, 12], title: "Data 02" },
-            { x: [1, 2, 3, 4], y: [1, 2, 1, 2.5], title: "Data 03" }
-        ];
-		
 		// Reusable layout and config
         const layout = {
             margin: {
@@ -67,20 +55,39 @@
             displaylogo: false
         };
 
-		// Function to initialize each Plotly graph
-        function initPlotlyGraph(elementId, dataX, dataY) {
-            const trace = {
-                x: dataX,
-                y: dataY,
-                type: 'scatter'
-            };
-            Plotly.newPlot(elementId, [trace], layout, config);
+		// Function to fetch JSON data from Google Drive
+        async function fetchGraphData() {
+            const fileUrl = "https://drive.google.com/uc?id=1_KDHm_7XmO9Z6xv2BpGebG-QHEN2OAB5&export=download";
+            try {
+                const response = await fetch(fileUrl);
+                if (!response.ok) throw new Error("Failed to fetch data");
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("Error fetching graph data:", error);
+                return null;
+            }
+        }
+		
+		// Main function to load and display graphs
+        async function loadGraphs() {
+            const graphData = await fetchGraphData();
+            if (!graphData) {
+                document.getElementById("data-value").textContent = "Error loading data";
+                return;
+            }
+
+            // Update each graph with data from JSON
+            initPlotlyGraph("plotly-graph-1", graphData.x1, graphData.y1);
+            initPlotlyGraph("plotly-graph-2", graphData.x2, graphData.y2);
+            initPlotlyGraph("plotly-graph-3", graphData.x3, graphData.y3);
+
+            document.getElementById("data-value").textContent = "Data loaded successfully";
         }
 
-        // Loop through each graph and initialize it
-        graphData.forEach((data, index) => {
-            initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y);
-        });
+        // Load graphs on page load
+        loadGraphs();
+		
     </script>
 
 </body>
