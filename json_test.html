@@ -24,6 +24,7 @@
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(newValue),
+				mode: 'no-cors'
             })
             .then(response => {
                 if (response.ok) {
