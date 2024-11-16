@@ -8,10 +8,11 @@
 <body>
     <h1>Update JSON with JSONHost</h1>
     <button id="update-json-btn">Update JSON</button>
+	
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
-        const endpoint = "https://jsonhost.com/json/f09b316ec0935d8e25cecd5acb91ee37/reset_command";
-        const authToken = "cr3jhyznlzsuin6yxmkk6gbqwqhgepxn";
+        const endpoint = "https://api.jsonsilo.com/public/857cb686-c76b-4a96-a025-08d16f6bf50b";
 
         document.getElementById("update-json-btn").addEventListener("click", function() {
             // New data to update
@@ -21,7 +22,6 @@
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": authToken,
                 },
                 body: JSON.stringify(newValue),
             })
