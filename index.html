@@ -13,7 +13,7 @@
             border-radius: 50%;
             width: 50px;
             height: 50px;
-            animation: spin 1.5s linear infinite;
+            animation: spin 1s linear infinite;
             margin: 20px auto;
         }
 
@@ -109,7 +109,7 @@
             setLoadingState(true);
 			
 			// Add a 1-second delay before continuing with the data fetch
-			await delay(1000);
+			await delay(500);
 			
 			// Get reference to root or specific path
             const dbRef = ref(getDatabase(), '/');  // Path to data in Firebase (fetching entire data object)
