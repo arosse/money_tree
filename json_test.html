@@ -9,37 +9,41 @@
     <h1>Update JSON with JSONHost</h1>
     <button id="update-json-btn">Update JSON</button>
 	
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="module">
+	  // Import the functions you need from the SDKs you need
+	  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+	  // TODO: Add SDKs for Firebase products that you want to use
+	  // https://firebase.google.com/docs/web/setup#available-libraries
+
+	  // Your web app's Firebase configuration
+	  const firebaseConfig = {
+		apiKey: "AIzaSyDOUk81nMwiwiT8nNI9iX8E6N59ZCepSFg",
+		authDomain: "money-tree-25168.firebaseapp.com",
+		databaseURL: "https://money-tree-25168-default-rtdb.europe-west1.firebasedatabase.app",
+		projectId: "money-tree-25168",
+		storageBucket: "money-tree-25168.firebasestorage.app",
+		messagingSenderId: "605722075398",
+		appId: "1:605722075398:web:1bf1462b8293ec50837e87"
+	  };
+
+	  // Initialize Firebase
+	  const app = initializeApp(firebaseConfig);
+	</script>
 
     <script>
-        const endpoint = "https://jsonsilo.com/api/v1/manage/857cb686-c76b-4a96-a025-08d16f6bf50b";
-
         document.getElementById("update-json-btn").addEventListener("click", function() {
             // New data to update
             const newValue = "372021"; // Replace with your desired value
 
-            fetch(endpoint, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newValue),
-				mode: 'no-cors'
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error("Failed to update JSON file");
-            })
-            .then(data => {
-                console.log("Updated data:", data);
-                alert("JSON file updated successfully!");
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Error updating JSON file: " + error.message);
-            });
+             const resetCommandRef = db.ref('reset_command');
+					resetCommandRef.set(newValue)
+					.then(() => {
+						console.log('Value updated successfully');
+						alert('JSON updated successfully!');
+					})
+					.catch((error) => {
+						console.error('Error updating the JSON:', error);
+					});
         });
     </script>
 </body>
