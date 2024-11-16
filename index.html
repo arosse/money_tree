@@ -101,18 +101,6 @@
             });
         }
 
-        // Function to set the loading state for graphs
-        function setLoadingState(isLoading) {
-            const graphs = document.querySelectorAll('.plotly-graph');
-            graphs.forEach((graph) => {
-                if (isLoading) {
-                    graph.innerHTML = '<div class="spinner"></div>';
-                } else {
-                    graph.innerHTML = '';
-                }
-            });
-        }
-
 		// Function to set the loading state for graphs
 		function setLoadingState(isLoading) {
 			const graphs = document.querySelectorAll('.plotly-graph');
