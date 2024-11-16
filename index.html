@@ -92,7 +92,7 @@
 		
 		// Import necessary functions from Firebase SDK
 		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js";
-		import { getDatabase, ref } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js";
+		import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js";
 		
 		// Initialize Firebase
 		const app = initializeApp(firebaseConfig);
@@ -103,9 +103,10 @@
 			document.getElementById('data-value').textContent = "Loading data...";
             setLoadingState(true);
 			
-			const dataRef = db.ref('/');   // Path to data in Firebase (fetching entire data object)
+			// Get reference to root or specific path
+            const dbRef = ref(getDatabase(), '/');  // Path to data in Firebase (fetching entire data object)
 			
-			dataRef.get().then((snapshot) => {
+			get(dbRef).then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();  // Get the whole data object from Firebase
                     setLoadingState(false);
