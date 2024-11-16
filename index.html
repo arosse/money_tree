@@ -44,6 +44,11 @@
             <h2>Current Data</h2>
             <p id="data-value">Loading data...</p>
             <button id="refresh-btn">Refresh Data</button>
+			<div class="button-container">
+                <button id="pause-buying-btn">Pause Buying</button>
+                <button id="pause-selling-btn">Pause Selling</button>
+                <button id="force-restart-btn">Force Restart</button>
+            </div>
 			<br><br>
         </section>
 
@@ -102,8 +107,18 @@
 		function delay(ms) {
 			return new Promise(resolve => setTimeout(resolve, ms));
 		}
+		
+		// Function to update Firebase fields when buttons are clicked
+        function updateFirebaseField(field, value) {
+            const dbRef = db.ref(`/${field}`);
+            dbRef.set(value).then(() => {
+                console.log(`${field} updated to ${value}`);
+            }).catch((error) => {
+                console.error(`Error updating ${field}:`, error);
+            });
+        }
 
-		// Function to fetch the JSON data from Google Drive
+		// Function to fetch the JSON data from Google Firebase
         async function fetchData() {
 			document.getElementById('data-value').textContent = "Loading data...";
             setLoadingState(true);
@@ -185,11 +200,22 @@
 
         // Attach event listener to the refresh button
         document.getElementById("refresh-btn").addEventListener("click", fetchData);
+		
+		// Attach event listener to the "Pause Buying" button
+        document.getElementById("pause-buying-btn").addEventListener("click", function() {
+            // Get the current Unix timestamp
+            const timestamp = getCurrentUnixTimestamp();
+            // Update the "pause_buy_cmd" field with the timestamp value
+            updateFirebaseField('pause_buy_cmd', timestamp);
+        });
 
         // Call fetchData when the page loads (optional)
         fetchData();
 		
     </script>
+	
+	
+	
 
 </body>
 </html>
