@@ -114,13 +114,17 @@
 		
 		// Function to update Firebase fields when buttons are clicked
         function updateFirebaseField(field, value) {
-            const dbRef = db.ref(`/${field}`);
-            dbRef.set(value).then(() => {
-                console.log(`${field} updated to ${value}`);
-            }).catch((error) => {
-                console.error(`Error updating ${field}:`, error);
-            });
-        }
+            const dbRef = ref(db, field); // 'ref' is used to create a reference to a location in your DB
+
+            // Update the field in Firebase
+            set(dbRef, newValue)
+                .then(() => {
+                    console.log('Value updated successfully');
+                    alert('Database updated successfully!');
+                })
+                .catch((error) => {
+                    console.error('Error updating the Database:', error);
+                });
 
 		// Function to fetch the JSON data from Google Firebase
         async function fetchData() {
