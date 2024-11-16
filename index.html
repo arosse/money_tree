@@ -25,6 +25,13 @@
                 transform: rotate(360deg);
             }
         }
+		
+		.plotly-graph {
+            min-height: 300px; /* Prevents the layout from collapsing */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 	
 </head>
@@ -48,10 +55,14 @@
 			</div>
         
 			<h2>Data 02</h2>
-			<div id="plotly-graph-2" class="plotly-graph"></div>
+			<div id="plotly-graph-2" class="plotly-graph">
+				<div class="spinner"></div>
+			</div>
 			
 			<h2>Data 03</h2>
-			<div id="plotly-graph-3" class="plotly-graph"></div>
+			<div id="plotly-graph-3" class="plotly-graph">
+				<div class="spinner"></div>
+			</div>
         </section>
 		
     </main>
