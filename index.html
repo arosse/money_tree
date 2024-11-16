@@ -117,7 +117,7 @@
             const dbRef = ref(db, field); // 'ref' is used to create a reference to a location in your DB
 
             // Update the field in Firebase
-            set(dbRef, newValue)
+            set(dbRef, value)
                 .then(() => {
                     console.log('Value updated successfully');
                     alert('Database updated successfully!');
