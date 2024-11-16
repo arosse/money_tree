@@ -15,6 +15,7 @@
         <section id="data-section">
             <h2>Current Data</h2>
             <p id="data-value">Loading data...</p>
+			<div id="loading-animation"></div>
             <button onclick="refreshData()">Refresh Data</button>
 			<br><br>
         </section>
@@ -38,8 +39,6 @@
     </footer>
 	
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
-	
-	<!-- Include the Google API Client Library -->
     <script src="https://apis.google.com/js/api.js"></script>
 
 	<script>			
@@ -103,11 +102,25 @@
                 };
                 Plotly.newPlot(elementId, [trace], layout, config);
             }
+			
+			function showLoadingAnimation() {
+				const loadingAnimation = document.getElementById('loading-animation');
+				loadingAnimation.style.display = 'block'; // Show animation
+			}
+			  
+			function hideLoadingAnimation() {
+				const loadingAnimation = document.getElementById('loading-animation');
+				loadingAnimation.style.display = 'none';  // Hide animation
+			}  
+			
+			showLoadingAnimation(); // Show animation before fetching data
 
             // Loop through each graph and initialize it
             graphData.forEach((data, index) => {
                 initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y);
             });
+			
+			hideLoadingAnimation(); // Hide animation after graphs are created
         }
 
         // Load the client after the API script has loaded
