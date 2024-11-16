@@ -3,41 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update JSON</title>
+    <title>Update JSON Example</title>
 </head>
 <body>
-    <h1>Update JSON Example</h1>
+    <h1>Update JSON with JSONHost</h1>
     <button id="update-json-btn">Update JSON</button>
 
     <script>
-        const apiUrl = 'https://api.npoint.io/4c776e89de4cfd257848';
+        const endpoint = "https://jsonhost.com/json/f09b316ec0935d8e25cecd5acb91ee37/reset_command";
+        const authToken = "cr3jhyznlzsuin6yxmkk6gbqwqhgepxn";
 
-        document.getElementById('update-json-btn').addEventListener('click', function() {
-            const updatedData = {
-                status: 0,
-                reset_command: 0
-            };
+        document.getElementById("update-json-btn").addEventListener("click", function() {
+            // New data to update
+            const newValue = "372021"; // Replace with your desired value
 
-            fetch(apiUrl, {
-                method: 'PUT',
+            fetch(endpoint, {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json",
+                    "Authorization": authToken,
                 },
-                body: JSON.stringify(updatedData)
+                body: JSON.stringify(newValue),
             })
             .then(response => {
                 if (response.ok) {
                     return response.json();
                 }
-                throw new Error('Failed to update JSON file');
+                throw new Error("Failed to update JSON file");
             })
             .then(data => {
-                console.log('Updated data:', data);
-                alert('JSON file updated successfully!');
+                console.log("Updated data:", data);
+                alert("JSON file updated successfully!");
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('Error updating JSON file: ' + error.message);
+                console.error("Error:", error);
+                alert("Error updating JSON file: " + error.message);
             });
         });
     </script>
