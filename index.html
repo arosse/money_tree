@@ -5,34 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Simulation Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Simple spinner styling */
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .plotly-graph {
-            min-height: 300px; /* Prevents the layout from collapsing */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -44,37 +16,37 @@
             <h2>Current Data</h2>
             <p id="data-value">Loading data...</p>
             <button onclick="refreshData()">Refresh Data</button>
-            <br><br>
+			<br><br>
         </section>
 
         <section id="chart-section">
             <h2>Data 01</h2>
-            <div id="plotly-graph-1" class="plotly-graph">
-                <div class="spinner"></div>
-            </div>
-
-            <h2>Data 02</h2>
-            <div id="plotly-graph-2" class="plotly-graph">
-                <div class="spinner"></div>
-            </div>
-
-            <h2>Data 03</h2>
-            <div id="plotly-graph-3" class="plotly-graph">
-                <div class="spinner"></div>
-            </div>
+			<div id="plotly-graph-1" class="plotly-graph"></div>
+        
+			<h2>Data 02</h2>
+			<div id="plotly-graph-2" class="plotly-graph"></div>
+			
+			<h2>Data 03</h2>
+			<div id="plotly-graph-3" class="plotly-graph"></div>
         </section>
+		
     </main>
+
 
     <footer>
         <p>Footer Text</p>
     </footer>
-
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+	
+	<!-- Include the Google API Client Library -->
     <script src="https://apis.google.com/js/api.js"></script>
-    <script>
-        const fileId = '1_KDHm_7XmO9Z6xv2BpGebG-QHEN2OAB5';
 
-        // Function to load the Google API client
+	<script>			
+		// Your Google Drive file ID
+        const fileId = '1_KDHm_7XmO9Z6xv2BpGebG-QHEN2OAB5';
+		
+		// Function to load the Google API client
         function loadClient() {
             gapi.client.init({
                 apiKey: 'AIzaSyBnNXH0pYSGvoI1DWrRUih4JdGgv1OEGlg',
@@ -83,93 +55,65 @@
             });
         }
 
-        // Function to fetch the JSON data from Google Drive
+		// Function to fetch the JSON data from Google Drive
         function fetchData() {
-            document.getElementById('data-value').textContent = "Loading data...";
-            setLoadingState(true);
-
             gapi.client.request({
-                path: `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+                path: `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, // Use the file ID to fetch the content
             }).then((response) => {
-                const data = response.body;
+                const data = response.body; // This should be the JSON file content
                 updateGraphs(data);
-                document.getElementById('data-value').textContent = "Data loaded successfully.";
             }, (error) => {
-                console.error('Error fetching data:', error);
-                document.getElementById('data-value').textContent = "Failed to load data.";
-                setLoadingState(false); // Remove spinners
+                console.error('Error fetching data from Google Drive:', error);
             });
         }
+		
+		// Function to update the graphs with the new data
+        function updateGraphs(data) {
+            // Assuming the data is in JSON format like you mentioned
+            const jsonData = JSON.parse(data); 
 
-		// Function to set the loading state for graphs
-		function setLoadingState(isLoading) {
-			const graphs = document.querySelectorAll('.plotly-graph');
-			graphs.forEach((graph) => {
-				if (isLoading) {
-					// Add a spinner to each graph if not already present
-					if (!graph.querySelector('.spinner')) {
-						graph.innerHTML = '<div class="spinner"></div>';
-					}
-				}
-			});
-		}
+            // Data for each chart
+            const graphData = [
+                { x: jsonData.x1, y: jsonData.y1, title: "Data 01" },
+                { x: jsonData.x2, y: jsonData.y2, title: "Data 02" },
+                { x: jsonData.x3, y: jsonData.y3, title: "Data 03" }
+            ];
 
-		// Function to update the graphs with new data
-		function updateGraphs(jsonData) {
-			const graphData = [
-				{ x: jsonData.x1, y: jsonData.y1, title: "Data 01" },
-				{ x: jsonData.x2, y: jsonData.y2, title: "Data 02" },
-				{ x: jsonData.x3, y: jsonData.y3, title: "Data 03" }
-			];
+            // Reusable layout and config for Plotly
+            const layout = {
+                margin: {
+                    t: 10,  // Top margin
+                    r: 15,  // Right margin
+                    b: 30,  // Bottom margin
+                    l: 30   // Left margin
+                }
+            };
 
-			const layout = {
-				margin: { t: 10, r: 15, b: 30, l: 30 }
-			};
+            const config = {
+                modeBarButtonsToRemove: ['toImage', 'select2d', 'lasso2d', 'hoverClosestCartesian', 'toggleSpikelines', 'hoverCompareCartesian'],
+                displaylogo: false
+            };
 
-			const config = {
-				modeBarButtonsToRemove: ['toImage', 'select2d', 'lasso2d', 'hoverClosestCartesian', 'toggleSpikelines', 'hoverCompareCartesian'],
-				displaylogo: false
-			};
+            // Function to initialize each Plotly graph
+            function initPlotlyGraph(elementId, dataX, dataY) {
+                const trace = {
+                    x: dataX,
+                    y: dataY,
+                    type: 'scatter'
+                };
+                Plotly.newPlot(elementId, [trace], layout, config);
+            }
 
-			// Loop through each graph container and render the graph
-			graphData.forEach((data, index) => {
-				const elementId = `plotly-graph-${index + 1}`;
-				const container = document.getElementById(elementId);
-
-				// Debug: Check if data is available
-				console.log(`Rendering graph ${index + 1}:`, data);
-
-				// Ensure spinner is removed before plotting
-				container.innerHTML = '';
-
-				// Validate data before plotting
-				if (data.x && data.y) {
-					const trace = { x: data.x, y: data.y, type: 'scatter' };
-					Plotly.newPlot(container, [trace], layout, config)
-						.then(() => {
-							console.log(`Graph ${index + 1} rendered successfully.`);
-						})
-						.catch((err) => {
-							console.error(`Error rendering graph ${index + 1}:`, err);
-						});
-				} else {
-					console.error(`Invalid data for graph ${index + 1}:`, data);
-					container.innerHTML = '<p>Error loading data</p>';
-				}
-			});
-
-			// Clear the loading state for all graphs
-			setLoadingState(false);
-		}
-
-
-        // Refresh data manually
-        function refreshData() {
-            fetchData();
+            // Loop through each graph and initialize it
+            graphData.forEach((data, index) => {
+                initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y);
+            });
         }
 
         // Load the client after the API script has loaded
         gapi.load('client', loadClient);
+		
     </script>
+
 </body>
 </html>
