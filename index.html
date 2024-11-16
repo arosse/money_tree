@@ -97,14 +97,19 @@
 		// Initialize Firebase
 		const app = initializeApp(firebaseConfig);
 		const db = getDatabase(app);  // Initialize the database
+		
+		// Function to introduce a delay
+		function delay(ms) {
+			return new Promise(resolve => setTimeout(resolve, ms));
+		}
 
 		// Function to fetch the JSON data from Google Drive
-        function fetchData() {
+        async function fetchData() {
 			document.getElementById('data-value').textContent = "Loading data...";
             setLoadingState(true);
 			
-			// add test delay
-			delay(1000);
+			// Add a 1-second delay before continuing with the data fetch
+			await delay(1000);
 			
 			// Get reference to root or specific path
             const dbRef = ref(getDatabase(), '/');  // Path to data in Firebase (fetching entire data object)
