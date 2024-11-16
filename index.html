@@ -138,14 +138,10 @@
 		
 		// Function to update the graphs with the new data
         function updateGraphs(data) {
-            // Assuming the data is in JSON format like you mentioned
-            const jsonData = JSON.parse(data); 
-
-            // Data for each chart
             const graphData = [
-                { x: jsonData.x1, y: jsonData.y1, title: "Data 01" },
-                { x: jsonData.x2, y: jsonData.y2, title: "Data 02" },
-                { x: jsonData.x3, y: jsonData.y3, title: "Data 03" }
+                { x: data.x1, y: data.y1, title: "Data 01" },
+                { x: data.x2, y: data.y2, title: "Data 02" },
+                { x: data.x3, y: data.y3, title: "Data 03" }
             ];
 
             // Reusable layout and config for Plotly
