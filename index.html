@@ -113,32 +113,54 @@
             });
         }
 
-        // Function to update the graphs with new data
-        function updateGraphs(data) {
-            const jsonData = JSON.parse(data);
-            const graphData = [
-                { x: jsonData.x1, y: jsonData.y1, title: "Data 01" },
-                { x: jsonData.x2, y: jsonData.y2, title: "Data 02" },
-                { x: jsonData.x3, y: jsonData.y3, title: "Data 03" }
-            ];
+		// Function to set the loading state for graphs
+		function setLoadingState(isLoading) {
+			const graphs = document.querySelectorAll('.plotly-graph');
+			graphs.forEach((graph) => {
+				if (isLoading) {
+					// Add spinner if not already present
+					if (!graph.querySelector('.spinner')) {
+						graph.innerHTML = '<div class="spinner"></div>';
+					}
+				} else {
+					// Clear the spinner without deleting the graph container
+					graph.innerHTML = '';
+				}
+			});
+		}
 
-            const layout = {
-                margin: { t: 10, r: 15, b: 30, l: 30 }
-            };
+		// Function to update the graphs with new data
+		function updateGraphs(jsonData) {
+			const graphData = [
+				{ x: jsonData.x1, y: jsonData.y1, title: "Data 01" },
+				{ x: jsonData.x2, y: jsonData.y2, title: "Data 02" },
+				{ x: jsonData.x3, y: jsonData.y3, title: "Data 03" }
+			];
 
-            const config = {
-                modeBarButtonsToRemove: ['toImage', 'select2d', 'lasso2d', 'hoverClosestCartesian', 'toggleSpikelines', 'hoverCompareCartesian'],
-                displaylogo: false
-            };
+			const layout = {
+				margin: { t: 10, r: 15, b: 30, l: 30 }
+			};
 
-            graphData.forEach((data, index) => {
-                const elementId = `plotly-graph-${index + 1}`;
-                const trace = { x: data.x, y: data.y, type: 'scatter' };
-                Plotly.newPlot(elementId, [trace], layout, config);
-            });
+			const config = {
+				modeBarButtonsToRemove: ['toImage', 'select2d', 'lasso2d', 'hoverClosestCartesian', 'toggleSpikelines', 'hoverCompareCartesian'],
+				displaylogo: false
+			};
 
-            setLoadingState(false); // Remove spinners
-        }
+			// Loop through each graph container and render the graph
+			graphData.forEach((data, index) => {
+				const elementId = `plotly-graph-${index + 1}`;
+				const container = document.getElementById(elementId);
+
+				// Remove spinner and prepare container for graph
+				container.innerHTML = '';
+
+				const trace = { x: data.x, y: data.y, type: 'scatter' };
+				Plotly.newPlot(container, [trace], layout, config);
+			});
+
+			setLoadingState(false); // Ensure spinners are cleared
+		}
+
 
         // Refresh data manually
         function refreshData() {
