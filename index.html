@@ -43,7 +43,7 @@
         <section id="data-section">
             <h2>Current Data</h2>
             <p id="data-value">Loading data...</p>
-            <button onclick="refreshData()">Refresh Data</button>
+            <button onclick="fetchData()">Refresh Data</button>
 			<br><br>
         </section>
 
@@ -181,11 +181,6 @@
             graphData.forEach((data, index) => {
                 initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y);
             });
-        }
-		
-		// Refresh data manually
-        function refreshData() {
-            fetchData();
         }
 
         // Load Firebase client and fetch data
