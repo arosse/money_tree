@@ -132,8 +132,8 @@
 			document.getElementById('data-value').textContent = "Loading data...";
             setLoadingState(true);
 			
-			// Add a 1-second delay before continuing with the data fetch
-			await delay(500);
+			// Add a delay before continuing with the data fetch
+			await delay(300);
 			
 			// Get reference to root or specific path
             const dbRef = ref(getDatabase(), '/');  // Path to data in Firebase (fetching entire data object)
@@ -213,8 +213,8 @@
 		// Attach event listener to the "Pause Buying" button
         document.getElementById("pause-buying-btn").addEventListener("click", function() {
             // Get the current Unix timestamp
-            timestamp = getCurrentUnixTimestamp();
-			msg = 'Pause All Buying command successfully sent';
+            const timestamp = getCurrentUnixTimestamp();
+			const msg = 'Pause All Buying command successfully sent';
             // Update the "pause_buy_cmd" field with the timestamp value
             updateFirebaseField('pause_buy_cmd', timestamp, msg);
         });
@@ -222,8 +222,8 @@
 		// Attach event listener to the "Pause Selling" button
         document.getElementById("pause-selling-btn").addEventListener("click", function() {
             // Get the current Unix timestamp
-            timestamp = getCurrentUnixTimestamp();
-			msg = 'Pause All Selling command successfully sent';
+            const timestamp = getCurrentUnixTimestamp();
+			const msg = 'Pause All Selling command successfully sent';
             // Update the "pause_sell_cmd" field with the timestamp value
             updateFirebaseField('pause_sell_cmd', timestamp, msg);
         });
@@ -231,8 +231,8 @@
 		// Attach event listener to the "Reset" button
         document.getElementById("force-restart-btn").addEventListener("click", function() {
             // Get the current Unix timestamp
-            timestamp = getCurrentUnixTimestamp();
-			msg = 'Force Reset command successfully sent';
+            const timestamp = getCurrentUnixTimestamp();
+			const msg = 'Force Reset command successfully sent';
             // Update the "reset_command" field with the timestamp value
             updateFirebaseField('reset_command', timestamp, msg);
         });
