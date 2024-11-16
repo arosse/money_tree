@@ -3,68 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update JSON Example</title>
+    <title>Update JSON</title>
 </head>
 <body>
-    <header>
-        <h1>Update JSON Example</h1>
-    </header>
-
-    <main>
-        <section>
-            <p>Current Status: <span id="status-display">Loading...</span></p>
-            <button id="update-status-btn">Update Status</button>
-        </section>
-    </main>
+    <h1>Update JSON Example</h1>
+    <button id="update-json-btn">Update JSON</button>
 
     <script>
-        const apiUrl = "https://api.npoint.io/4c776e89de4cfd257848";
-        const apiKey = "YOUR_API_KEY_HERE"; // Replace with your npoint.io API key if required.
+        const apiUrl = 'https://api.npoint.io/4c776e89de4cfd257848';
 
-        // Function to fetch and display current JSON values
-        async function fetchJson() {
-            try {
-                const response = await fetch(apiUrl);
-                const data = await response.json();
-                document.getElementById('status-display').textContent = data.status;
-            } catch (error) {
-                console.error("Error fetching JSON:", error);
-            }
-        }
-
-        // Function to update the JSON file
-        async function updateJson() {
+        document.getElementById('update-json-btn').addEventListener('click', function() {
             const updatedData = {
-                status: 0, // Change the value as needed
-                reset_command: 1
+                status: 0,
+                reset_command: 0
             };
 
-            try {
-                const response = await fetch(apiUrl, {
-                    method: "PUT", // Or "PATCH", depending on the API
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${apiKey}` // If API key is required
-                    },
-                    body: JSON.stringify(updatedData)
-                });
-
+            fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedData)
+            })
+            .then(response => {
                 if (response.ok) {
-                    console.log("JSON updated successfully");
-                    fetchJson(); // Refresh the displayed data
-                } else {
-                    console.error("Error updating JSON:", response.statusText);
+                    return response.json();
                 }
-            } catch (error) {
-                console.error("Error sending update request:", error);
-            }
-        }
-
-        // Fetch current JSON values on page load
-        fetchJson();
-
-        // Add event listener to the button
-        document.getElementById('update-status-btn').addEventListener('click', updateJson);
+                throw new Error('Failed to update JSON file');
+            })
+            .then(data => {
+                console.log('Updated data:', data);
+                alert('JSON file updated successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating JSON file: ' + error.message);
+            });
+        });
     </script>
 </body>
 </html>
