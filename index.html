@@ -43,7 +43,7 @@
         <section id="data-section">
             <h2>Current Data</h2>
             <p id="data-value">Loading data...</p>
-            <button onclick="fetchData">Refresh Data</button>
+            <button id="refresh-btn">Refresh Data</button>
 			<br><br>
         </section>
 
@@ -183,8 +183,11 @@
             });
         }
 
-        // Load Firebase client and fetch data
-        window.onload = fetchData;
+        // Attach event listener to the refresh button
+        document.getElementById("refresh-btn").addEventListener("click", fetchData);
+
+        // Call fetchData when the page loads (optional)
+        fetchData();
 		
     </script>
 
