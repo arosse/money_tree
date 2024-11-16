@@ -126,6 +126,11 @@
 			// Add a 1-second delay before continuing with the data fetch
 			await delay(500);
 			
+			// Function to get the current Unix timestamp in seconds
+			function getCurrentUnixTimestamp() {
+				return Math.floor(Date.now() / 1000);  // This returns the current timestamp in seconds
+			}
+			
 			// Get reference to root or specific path
             const dbRef = ref(getDatabase(), '/');  // Path to data in Firebase (fetching entire data object)
 			
