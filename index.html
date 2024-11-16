@@ -90,6 +90,10 @@
 			appId: "1:605722075398:web:1bf1462b8293ec50837e87"
 		};
 		
+		// Import necessary functions from Firebase SDK
+		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js";
+		import { getDatabase, ref } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js";
+		
 		// Initialize Firebase
 		const app = initializeApp(firebaseConfig);
 		const db = getDatabase(app);  // Initialize the database
