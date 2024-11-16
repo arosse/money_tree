@@ -103,6 +103,9 @@
 			document.getElementById('data-value').textContent = "Loading data...";
             setLoadingState(true);
 			
+			// add test delay
+			await delay(1000);
+			
 			// Get reference to root or specific path
             const dbRef = ref(getDatabase(), '/');  // Path to data in Firebase (fetching entire data object)
 			
