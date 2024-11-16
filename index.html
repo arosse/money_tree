@@ -113,14 +113,14 @@
 		}
 		
 		// Function to update Firebase fields when buttons are clicked
-        function updateFirebaseField(field, value) {
+        function updateFirebaseField(field, value, message) {
             const dbRef = ref(db, field); // 'ref' is used to create a reference to a location in your DB
 
             // Update the field in Firebase
             set(dbRef, value)
                 .then(() => {
                     console.log('Value updated successfully');
-                    alert('Database updated successfully!');
+                    alert(message);
                 })
                 .catch((error) => {
                     console.error('Error updating the Database:', error);
@@ -213,9 +213,28 @@
 		// Attach event listener to the "Pause Buying" button
         document.getElementById("pause-buying-btn").addEventListener("click", function() {
             // Get the current Unix timestamp
-            const timestamp = getCurrentUnixTimestamp();
+            timestamp = getCurrentUnixTimestamp();
+			msg = 'Pause All Buying command successfully sent';
             // Update the "pause_buy_cmd" field with the timestamp value
-            updateFirebaseField('pause_buy_cmd', timestamp);
+            updateFirebaseField('pause_buy_cmd', timestamp, msg);
+        });
+		
+		// Attach event listener to the "Pause Selling" button
+        document.getElementById("pause-selling-btn").addEventListener("click", function() {
+            // Get the current Unix timestamp
+            timestamp = getCurrentUnixTimestamp();
+			msg = 'Pause All Selling command successfully sent';
+            // Update the "pause_sell_cmd" field with the timestamp value
+            updateFirebaseField('pause_sell_cmd', timestamp, msg);
+        });
+		
+		// Attach event listener to the "Reset" button
+        document.getElementById("force-restart-btn").addEventListener("click", function() {
+            // Get the current Unix timestamp
+            timestamp = getCurrentUnixTimestamp();
+			msg = 'Force Reset command successfully sent';
+            // Update the "reset_command" field with the timestamp value
+            updateFirebaseField('reset_command', timestamp, msg);
         });
 
         // Call fetchData when the page loads (optional)
