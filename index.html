@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Simulation Dashboard</title>
     <link rel="stylesheet" href="style.css">
+	<style>
+        /* Simple spinner styling */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+	
 </head>
 <body>
     <header>
@@ -21,7 +43,9 @@
 
         <section id="chart-section">
             <h2>Data 01</h2>
-			<div id="plotly-graph-1" class="plotly-graph"></div>
+			<div id="plotly-graph-1" class="plotly-graph">
+				<div class="spinner"></div>
+			</div>
         
 			<h2>Data 02</h2>
 			<div id="plotly-graph-2" class="plotly-graph"></div>
@@ -57,13 +81,32 @@
 
 		// Function to fetch the JSON data from Google Drive
         function fetchData() {
+			document.getElementById('data-value').textContent = "Loading data...";
+            setLoadingState(true);
+			
             gapi.client.request({
                 path: `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, // Use the file ID to fetch the content
             }).then((response) => {
                 const data = response.body; // This should be the JSON file content
+				setLoadingState(false); // Remove spinners
+				document.getElementById('data-value').textContent = "Data loaded successfully.";
                 updateGraphs(data);
             }, (error) => {
                 console.error('Error fetching data from Google Drive:', error);
+				document.getElementById('data-value').textContent = "Failed to load data.";
+                setLoadingState(false); // Remove spinners
+            });
+        }
+		
+		// Function to set the loading state for graphs
+        function setLoadingState(isLoading) {
+            const graphs = document.querySelectorAll('.plotly-graph');
+            graphs.forEach((graph) => {
+                if (isLoading) {
+                    graph.innerHTML = '<div class="spinner"></div>';
+                } else {
+                    graph.innerHTML = '';
+                }
             });
         }
 		
@@ -108,6 +151,11 @@
             graphData.forEach((data, index) => {
                 initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y);
             });
+        }
+		
+		// Refresh data manually
+        function refreshData() {
+            fetchData();
         }
 
         // Load the client after the API script has loaded
