@@ -12,14 +12,14 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
-        const endpoint = "https://api.jsonsilo.com/public/857cb686-c76b-4a96-a025-08d16f6bf50b";
+        const endpoint = "https://jsonsilo.com/api/v1/manage/857cb686-c76b-4a96-a025-08d16f6bf50b";
 
         document.getElementById("update-json-btn").addEventListener("click", function() {
             // New data to update
             const newValue = "372021"; // Replace with your desired value
 
             fetch(endpoint, {
-                method: "POST",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                 },
