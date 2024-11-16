@@ -71,41 +71,53 @@
         <p>Footer Text</p>
     </footer>
 	
+	<!-- Plotly scripts -->
 	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
 	
-	<!-- Include the Google API Client Library -->
-    <script src="https://apis.google.com/js/api.js"></script>
+	<!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js" type="module"></script>
 
 	<script>			
-		// Your Google Drive file ID
-        const fileId = '1_KDHm_7XmO9Z6xv2BpGebG-QHEN2OAB5';
+		// Your web app's Firebase configuration
+		const firebaseConfig = {
+			apiKey: "AIzaSyDOUk81nMwiwiT8nNI9iX8E6N59ZCepSFg",
+			authDomain: "money-tree-25168.firebaseapp.com",
+			databaseURL: "https://money-tree-25168-default-rtdb.europe-west1.firebasedatabase.app",
+			projectId: "money-tree-25168",
+			storageBucket: "money-tree-25168.firebasestorage.app",
+			messagingSenderId: "605722075398",
+			appId: "1:605722075398:web:1bf1462b8293ec50837e87"
+		};
 		
-		// Function to load the Google API client
-        function loadClient() {
-            gapi.client.init({
-                apiKey: 'AIzaSyBnNXH0pYSGvoI1DWrRUih4JdGgv1OEGlg',
-            }).then(() => {
-                fetchData();
-            });
-        }
+		// Initialize Firebase
+		const app = initializeApp(firebaseConfig);
+		const db = getDatabase(app);  // Initialize the database
 
 		// Function to fetch the JSON data from Google Drive
         function fetchData() {
 			document.getElementById('data-value').textContent = "Loading data...";
             setLoadingState(true);
 			
-            gapi.client.request({
-                path: `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, // Use the file ID to fetch the content
-            }).then((response) => {
-                const data = response.body; // This should be the JSON file content
-				setLoadingState(false); // Remove spinners
-				document.getElementById('data-value').textContent = "Data loaded successfully.";
-                updateGraphs(data);
-            }, (error) => {
-                console.error('Error fetching data from Google Drive:', error);
-				document.getElementById('data-value').textContent = "Failed to load data.";
-                setLoadingState(false); // Remove spinners
+			const dataRef = db.ref('/');   // Path to data in Firebase (fetching entire data object)
+			
+			dataRef.get().then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();  // Get the whole data object from Firebase
+                    setLoadingState(false);
+                    document.getElementById('data-value').textContent = "Data loaded successfully.";
+                    updateGraphs(data);  // Pass the entire data object to updateGraphs()
+                } else {
+                    console.log("No data available");
+                    document.getElementById('data-value').textContent = "Failed to load data.";
+                    setLoadingState(false);
+                }
+            }).catch((error) => {
+                console.error("Error fetching data from Firebase:", error);
+                document.getElementById('data-value').textContent = "Failed to load data.";
+                setLoadingState(false);
             });
+        }
         }
 		
 		// Function to set the loading state for graphs
