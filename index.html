@@ -183,8 +183,8 @@
             fetchData();
         }
 
-        // Load the client after the API script has loaded
-        gapi.load('client', loadClient);
+        // Load Firebase client and fetch data
+        window.onload = fetchData;
 		
     </script>
 
