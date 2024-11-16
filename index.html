@@ -106,13 +106,10 @@
 			const graphs = document.querySelectorAll('.plotly-graph');
 			graphs.forEach((graph) => {
 				if (isLoading) {
-					// Add spinner if not already present
+					// Add a spinner to each graph if not already present
 					if (!graph.querySelector('.spinner')) {
 						graph.innerHTML = '<div class="spinner"></div>';
 					}
-				} else {
-					// Clear the spinner without deleting the graph container
-					graph.innerHTML = '';
 				}
 			});
 		}
@@ -139,14 +136,30 @@
 				const elementId = `plotly-graph-${index + 1}`;
 				const container = document.getElementById(elementId);
 
-				// Remove spinner and prepare container for graph
+				// Debug: Check if data is available
+				console.log(`Rendering graph ${index + 1}:`, data);
+
+				// Ensure spinner is removed before plotting
 				container.innerHTML = '';
 
-				const trace = { x: data.x, y: data.y, type: 'scatter' };
-				Plotly.newPlot(container, [trace], layout, config);
+				// Validate data before plotting
+				if (data.x && data.y) {
+					const trace = { x: data.x, y: data.y, type: 'scatter' };
+					Plotly.newPlot(container, [trace], layout, config)
+						.then(() => {
+							console.log(`Graph ${index + 1} rendered successfully.`);
+						})
+						.catch((err) => {
+							console.error(`Error rendering graph ${index + 1}:`, err);
+						});
+				} else {
+					console.error(`Invalid data for graph ${index + 1}:`, data);
+					container.innerHTML = '<p>Error loading data</p>';
+				}
 			});
 
-			setLoadingState(false); // Ensure spinners are cleared
+			// Clear the loading state for all graphs
+			setLoadingState(false);
 		}
 
 
