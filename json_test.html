@@ -10,14 +10,10 @@
     <button id="update-json-btn">Update JSON</button>
 	
 	<!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js" type="module"></script>
 
 	<script type="module">
-	  // Import necessary functions from Firebase SDK
-	  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js";
-	  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js";
-	
 	  // Your web app's Firebase configuration
 	  const firebaseConfig = {
 		apiKey: "AIzaSyDOUk81nMwiwiT8nNI9iX8E6N59ZCepSFg",
@@ -29,6 +25,10 @@
 		appId: "1:605722075398:web:1bf1462b8293ec50837e87"
 	  };
 
+	  // Import necessary functions from Firebase SDK
+	  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js";
+	  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js";
+	
 	  // Initialize Firebase
 	  const app = initializeApp(firebaseConfig);
 	  const db = getDatabase(app);  // Initialize the database
