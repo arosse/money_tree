@@ -180,7 +180,7 @@
 			// Check update time compared to current time
 			const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
 			const statusUpdateTime = data.status_update_time.unix_timestamp;
-			const maxThreshold = 300; // Set threshold in seconds (e.g., 5 minutes)
+			const maxThreshold = 1200; // Set threshold in seconds (e.g., 20 minutes)
 
 			let status = data.status;
 			if (!statusUpdateTime || currentTime - statusUpdateTime > maxThreshold) {
