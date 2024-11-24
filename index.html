@@ -206,12 +206,10 @@
 			statusIndicatorElement.className = `indicator ${statusInfo.color}`;
 
 			// Update the Footer
-			updateFooter(data.status_update_time);
-
 			const footerTextElement = document.getElementById("footer-text");
 
 			// Format the last update time
-			const { year, month, day, hour, minute, second } = statusUpdateTime;
+			const { year, month, day, hour, minute, second } = data.status_update_time;
 			const formattedTime = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
 
 			// Update the footer text
