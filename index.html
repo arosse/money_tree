@@ -43,6 +43,10 @@
         <section id="data-section">
 			<button id="refresh-btn">Refresh Data</button>
             <p id="data-value">Loading data...</p>
+			<div id="status-container">
+                <p id="status-text">Status: <span id="status-value">Unknown</span></p>
+                <div id="status-indicator" class="indicator"></div>
+            </div>
 			<div class="button-container">
                 <button id="pause-buying-btn">Pause Buying</button>
                 <button id="pause-selling-btn">Pause Selling</button>
@@ -144,6 +148,7 @@
                     setLoadingState(false);
                     document.getElementById('data-value').textContent = "Data loaded successfully.";
                     updateGraphs(data);  // Pass the entire data object to updateGraphs()
+					updateStatus(data);  // Update status and Footer
                 } else {
                     console.log("No data available");
                     document.getElementById('data-value').textContent = "Failed to load data.";
@@ -167,6 +172,51 @@
                 }
             });
         }
+		
+		// Function to update the status and footer with the new data
+		function updateStatus(data) {
+			// Check update time compared to current time
+			const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+			const statusUpdateTime = data.status_update_time.unix_timestamp;
+			const maxThreshold = 300; // Set threshold in seconds (e.g., 5 minutes)
+
+			let status = data.status;
+			if (!statusUpdateTime || currentTime - statusUpdateTime > maxThreshold) {
+				status = "Offline"; // Default status if timestamp is too old
+			}
+
+			// Update status text and indicator
+			const statusTextElement = document.getElementById("status-value");
+			const statusIndicatorElement = document.getElementById("status-indicator");
+
+			// Map status codes to strings and colors
+			const statusMapping = {
+				0: { text: "Restarting", color: "yellow" },
+				1: { text: "Running", color: "green" },
+				2: { text: "Standby", color: "yellow" },
+				3: { text: "Offline", color: "red" },
+				4: { text: "Error", color: "red" },
+				"Offline": { text: "Offline", color: "red" } // Special case for manual override
+			};
+
+			const statusInfo = statusMapping[status] || { text: "Unknown", color: "gray" };
+
+			// Update the text and indicator
+			statusTextElement.textContent = statusInfo.text;
+			statusIndicatorElement.className = `indicator ${statusInfo.color}`;
+
+			// Update the Footer
+			updateFooter(data.status_update_time);
+
+			const footerTextElement = document.getElementById("footer-text");
+
+			// Format the last update time
+			const { year, month, day, hour, minute, second } = statusUpdateTime;
+			const formattedTime = `${day}/${month}/${year} ${hour}:${minute}:${second}`;
+
+			// Update the footer text
+			footerTextElement.textContent = `Last update: ${formattedTime}`;
+		};
 		
 		// Function to update the graphs with the new data
         function updateGraphs(data) {
@@ -241,9 +291,6 @@
         fetchData();
 		
     </script>
-	
-	
-	
 
 </body>
 </html>

@@ -49,6 +49,33 @@ section {
   margin-bottom: 20px;
 }
 
+/* Status indicator styles */
+#status-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#status-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: gray; /* Default color */
+}
+
+/* Good and bad status colors */
+.indicator.green {
+    background-color: green;
+}
+
+.indicator.yellow {
+    background-color: yellow;
+}
+
+.indicator.red {
+    background-color: red;
+}
+
 /* Footer styling */
 footer {
     background-color: #007bff;
