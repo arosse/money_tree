@@ -64,6 +64,7 @@ section {
     height: 20px;
     border-radius: 50%;
     background-color: gray; /* Default color */
+	border: 2px solid black; /* Debugging: add a border */
 }
 
 /* Good and bad status colors */

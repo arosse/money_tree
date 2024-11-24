@@ -200,13 +200,13 @@
 				4: { text: "Error", color: "red" },
 			};
 
-			// const statusInfo = statusMapping[status] || { text: "Unknown", color: "gray" };
+			const statusInfo = statusMapping[status] || { text: "Unknown", color: "gray" };
 
 			// Update the text 
 			statusTextElement.textContent = statusInfo.text;
 			
-			// Update the indicator color class
-			statusIndicatorElement.classList.remove("green", "yellow", "red", "gray"); // Remove all possible color classes
+			// Remove all classes from the indicator and add the new color class
+			statusIndicatorElement.className = 'indicator';  // Reset to base class
 			statusIndicatorElement.classList.add(statusInfo.color); // Add the new color class
 
 			// Update the Footer
