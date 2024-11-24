@@ -73,7 +73,7 @@ section {
 }
 
 #status-indicator.indicator.green {
-    background-color: green !important; /* Ensure green is applied */
+    background-color: lightgreen !important; /* Ensure green is applied */
 }
 
 #status-indicator.indicator.red {
