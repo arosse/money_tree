@@ -68,16 +68,16 @@ section {
 }
 
 /* Good and bad status colors */
-.indicator.green {
-    background-color: green;
+#status-indicator.indicator.yellow {
+    background-color: yellow !important; /* Ensure yellow is applied */
 }
 
-.indicator.yellow {
-    background-color: yellow;
+#status-indicator.indicator.green {
+    background-color: green !important; /* Ensure green is applied */
 }
 
-.indicator.red {
-    background-color: red;
+#status-indicator.indicator.red {
+    background-color: red !important; /* Ensure red is applied */
 }
 
 /* Footer styling */
