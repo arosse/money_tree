@@ -43,9 +43,9 @@
         <section id="data-section">
 			<div id="status-container">
                 <p id="status-text">Status: <span id="status-value">Unknown</span></p>
-				<br>
                 <div id="status-indicator" class="indicator"></div>
             </div>
+			<br>
 			<button id="refresh-btn">Refresh Data</button>
             <p id="data-value">Loading data...</p>
 			<br>
@@ -184,7 +184,7 @@
 
 			let status = data.status;
 			if (!statusUpdateTime || currentTime - statusUpdateTime > maxThreshold) {
-				status = "Offline"; // Default status if timestamp is too old
+				status = 3; // Default status ("Offline") if timestamp is too old
 			}
 
 			// Update status text and indicator
@@ -196,16 +196,18 @@
 				0: { text: "Restarting", color: "yellow" },
 				1: { text: "Running", color: "green" },
 				2: { text: "Standby", color: "yellow" },
-				3: { text: "Offline", color: "red" },
+				3: { text: "Offline", color: "gray" },
 				4: { text: "Error", color: "red" },
-				"Offline": { text: "Offline", color: "red" } // Special case for manual override
 			};
 
 			const statusInfo = statusMapping[status] || { text: "Unknown", color: "gray" };
 
-			// Update the text and indicator
+			// Update the text 
 			statusTextElement.textContent = statusInfo.text;
-			statusIndicatorElement.className = `indicator ${statusInfo.color}`;
+			
+			// Update the indicator color class
+			statusIndicatorElement.classList.remove("green", "yellow", "red", "gray"); // Remove all possible color classes
+			statusIndicatorElement.classList.add(statusInfo.color); // Add the new color class
 
 			// Update the Footer
 			const footerTextElement = document.getElementById("footer-text");
