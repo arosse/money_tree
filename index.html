@@ -296,9 +296,9 @@
 					const timestamp = getCurrentUnixTimestamp();
 					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
 
-					// Update the "pause_buy_cmd" field with the encoded value
-					const msg = 'Pause All Buying command successfully sent';
-					updateFirebaseField('pause_buy_cmd', encodedValue, msg);
+					// Update the "pause_sell_cmd" field with the encoded value
+					const msg = 'Pause Selling command successfully sent';
+					updateFirebaseField('pause_sell_cmd', encodedValue, msg);
 				} else {
 					alert("Invalid password entered. Please enter a numeric value.");
 				}
