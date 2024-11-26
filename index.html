@@ -282,11 +282,29 @@
 		
 		// Attach event listener to the "Pause Selling" button
         document.getElementById("pause-selling-btn").addEventListener("click", function() {
-            // Get the current Unix timestamp
-            const timestamp = getCurrentUnixTimestamp();
-			const msg = 'Pause All Selling command successfully sent';
-            // Update the "pause_sell_cmd" field with the timestamp value
-            updateFirebaseField('pause_sell_cmd', timestamp, msg);
+			// Request the password via a prompt
+			const password = prompt("Enter the password to pause buying:");
+			
+			 // Check if the user entered a password (not null or empty)
+			if (password !== null && password.trim() !== "") {
+				// Check if the entered password is a valid number
+				if (!isNaN(password)) {
+					// Perform transformation: multiply the numeric password by 1992
+					const transformedPassword = parseInt(password, 10) * 1992;
+
+					// Combine timestamp with the transformed password as a string
+					const timestamp = getCurrentUnixTimestamp();
+					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+					// Update the "pause_buy_cmd" field with the encoded value
+					const msg = 'Pause All Buying command successfully sent';
+					updateFirebaseField('pause_buy_cmd', encodedValue, msg);
+				} else {
+					alert("Invalid password entered. Please enter a numeric value.");
+				}
+			} else {
+				alert("No password entered. Command not sent.");
+			}
         });
 		
 		// Attach event listener to the "Reset" button
