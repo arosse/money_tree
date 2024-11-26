@@ -76,6 +76,10 @@ section {
     background-color: lightgreen !important; /* Ensure green is applied */
 }
 
+#status-indicator.indicator.blue {
+    background-color: lightblue !important; /* Ensure blue is applied */
+}
+
 #status-indicator.indicator.red {
     background-color: red !important; /* Ensure red is applied */
 }
