@@ -50,8 +50,12 @@
             <p id="data-value">Loading data...</p>
 			<br>
 			<div class="button-container">
-                <button id="pause-buying-btn">Pause Buying</button>
-                <button id="pause-selling-btn">Pause Selling</button>
+                <button id="pause-buying-btn" style="display: inline-block; margin-right: 10px;">Pause Buying</button>
+				<button id="resume-buying-btn" style="display: inline-block;">Resume Buying</button>
+				<br><br>
+                <button id="pause-selling-btn" style="display: inline-block; margin-right: 10px;">Pause Selling</button>
+				<button id="resume-selling-btn" style="display: inline-block;">Resume Selling</button>
+				<br><br>
                 <button id="force-restart-btn">Force Restart</button>
             </div>
 			<br>
@@ -306,6 +310,33 @@
 			}
         });
 		
+		// Attach event listener to the "Resume Buying" button
+        document.getElementById("resume-buying-btn").addEventListener("click", function() {
+            // Request the password via a prompt
+			const password = prompt("Enter the password to resume buying:");
+			
+			 // Check if the user entered a password (not null or empty)
+			if (password !== null && password.trim() !== "") {
+				// Check if the entered password is a valid number
+				if (!isNaN(password)) {
+					// Perform transformation: multiply the numeric password by 1992
+					const transformedPassword = parseInt(password, 10) * 1992;
+
+					// Combine timestamp with the transformed password as a string
+					const timestamp = getCurrentUnixTimestamp();
+					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+					// Update the "resume_buy_cmd" field with the encoded value
+					const msg = 'Resume Buying command successfully sent';
+					updateFirebaseField('resume_buy_cmd', encodedValue, msg);
+				} else {
+					alert("Invalid password entered. Please enter a numeric value.");
+				}
+			} else {
+				alert("No password entered. Command not sent.");
+			}
+        });
+		
 		// Attach event listener to the "Pause Selling" button
         document.getElementById("pause-selling-btn").addEventListener("click", function() {
 			// Request the password via a prompt
@@ -325,6 +356,33 @@
 					// Update the "pause_sell_cmd" field with the encoded value
 					const msg = 'Pause Selling command successfully sent';
 					updateFirebaseField('pause_sell_cmd', encodedValue, msg);
+				} else {
+					alert("Invalid password entered. Please enter a numeric value.");
+				}
+			} else {
+				alert("No password entered. Command not sent.");
+			}
+        });
+		
+		// Attach event listener to the "Resume Selling" button
+        document.getElementById("resume-selling-btn").addEventListener("click", function() {
+			// Request the password via a prompt
+			const password = prompt("Enter the password to resume selling:");
+			
+			 // Check if the user entered a password (not null or empty)
+			if (password !== null && password.trim() !== "") {
+				// Check if the entered password is a valid number
+				if (!isNaN(password)) {
+					// Perform transformation: multiply the numeric password by 1992
+					const transformedPassword = parseInt(password, 10) * 1992;
+
+					// Combine timestamp with the transformed password as a string
+					const timestamp = getCurrentUnixTimestamp();
+					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+					// Update the "resume_sell_cmd" field with the encoded value
+					const msg = 'Resume Selling command successfully sent';
+					updateFirebaseField('resume_sell_cmd', encodedValue, msg);
 				} else {
 					alert("Invalid password entered. Please enter a numeric value.");
 				}
