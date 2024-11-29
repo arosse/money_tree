@@ -244,13 +244,13 @@
             const graphData = [
                 { x: data.data_01.x, y: data.data_01.y, title: data.data_01.name, x2: data.data_01.x2, 
 				threshold_buy: data.data_01.threshold_buy, threshold_sell: data.data_01.threshold_sell, 
-				n_stocks: data.data_01.n_stocks, name: data.data_01.name},
+				n: data.data_01.n, name: data.data_01.name},
                 { x: data.data_01.x, y: data.data_01.y, title: data.data_01.name, x2: data.data_01.x2, 
 				threshold_buy: data.data_01.threshold_buy, threshold_sell: data.data_01.threshold_sell, 
-				n_stocks: data.data_01.n_stocks, name: data.data_01.name},
+				n: data.data_01.n, name: data.data_01.name},
                 { x: data.data_01.x, y: data.data_01.y, title: data.data_01.name, x2: data.data_01.x2, 
 				threshold_buy: data.data_01.threshold_buy, threshold_sell: data.data_01.threshold_sell, 
-				n_stocks: data.data_01.n_stocks, name: data.data_01.name},
+				n: data.data_01.n, name: data.data_01.name},
             ];
 
             // Reusable layout and config for Plotly
@@ -322,7 +322,7 @@
 
             // Loop through each graph and initialize it
             graphData.forEach((data, index) => {
-                initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.threshold_buy, data.threshold_sell, data.n_stocks, data.name);
+                initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.threshold_buy, data.threshold_sell, data.n, data.name);
             });
         }
 
