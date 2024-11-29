@@ -199,17 +199,15 @@
 			const statusMapping = {
 				0: { text: "Restarting", color: "yellow" },
 				1: { text: "Running", color: "green" },
-				2: { text: "Standby", color: "yellow" },
-				3: { text: "Offline", color: "gray" },
-				4: { text: "Error", color: "red" },
 				10: { text: "Running (Buying & Selling Paused)", color: "blue" },
 				11: { text: "Running (Selling Paused)", color: "blue" },
 				12: { text: "Running (Buying Paused)", color: "blue" },
+				2: { text: "Standby", color: "yellow" },
 				20: { text: "Standby (Buying & Selling Paused)", color: "yellow" },
 				21: { text: "Standby (Selling Paused)", color: "yellow" },
 				22: { text: "Standby (Buying Paused)", color: "yellow" },
 				3: { text: "Offline", color: "gray" },
-				4: { text: "Error", color: "red" },
+				99: { text: "Error", color: "red" },
 			};
 
 			const statusInfo = statusMapping[status] || { text: "Unknown", color: "gray" };
@@ -244,9 +242,15 @@
 		// Function to update the graphs with the new data
         function updateGraphs(data) {
             const graphData = [
-                { x: data.x1, y: data.y1, title: "Data 01" },
-                { x: data.x2, y: data.y2, title: "Data 02" },
-                { x: data.x3, y: data.y3, title: "Data 03" }
+                { x: data.data_01.x, y: data.data_01.y, title: data.data_01.name, x2: data.data_01.x2, 
+				threshold_buy: data.data_01.threshold_buy, threshold_sell: data.data_01.threshold_sell, 
+				n_stocks: data.data_01.n_stocks, name: data.data_01.name},
+                { x: data.data_01.x, y: data.data_01.y, title: data.data_01.name, x2: data.data_01.x2, 
+				threshold_buy: data.data_01.threshold_buy, threshold_sell: data.data_01.threshold_sell, 
+				n_stocks: data.data_01.n_stocks, name: data.data_01.name},
+                { x: data.data_01.x, y: data.data_01.y, title: data.data_01.name, x2: data.data_01.x2, 
+				threshold_buy: data.data_01.threshold_buy, threshold_sell: data.data_01.threshold_sell, 
+				n_stocks: data.data_01.n_stocks, name: data.data_01.name},
             ];
 
             // Reusable layout and config for Plotly
@@ -265,18 +269,60 @@
             };
 
             // Function to initialize each Plotly graph
-            function initPlotlyGraph(elementId, dataX, dataY) {
-                const trace = {
-                    x: dataX,
-                    y: dataY,
-                    type: 'scatter'
-                };
+            function initPlotlyGraph(elementId, dataX, dataY, dataX2, dataBuyLimit, dataSellLimit, n, name) {			
+				// Trace for the main price plot
+				const tracePrice = {
+					x: dataX,
+					y: dataY,
+					type: 'scatter',
+					mode: 'lines', // Ensures the plot is a line chart
+					name: 'Price' // Legend label
+				};
+
+				// Trace for the buy threshold (red dotted line)
+				const traceBuyLimit = {
+					x: dataX2,
+					y: Array(dataX2.length).fill(dataBuyLimit), // Create a constant y array
+					type: 'scatter',
+					mode: 'lines',
+					line: { color: 'red', dash: 'dot' }, // Dotted red line
+					name: 'Buy Threshold'
+				};
+
+				// Trace for the sell threshold (green dotted line)
+				const traceSellLimit = {
+					x: dataX2,
+					y: Array(dataX2.length).fill(dataSellLimit), // Create a constant y array
+					type: 'scatter',
+					mode: 'lines',
+					line: { color: 'green', dash: 'dot' }, // Dotted green line
+					name: 'Sell Threshold'
+				};
+				
+				// Collect traces based on the value of n
+				const traces = [tracePrice]; // Always include the price trace
+				if (n === 0) {
+					traces.push(traceBuyLimit); // Add only the buy threshold
+				} else {
+					traces.push(traceBuyLimit, traceSellLimit); // Add both thresholds
+				}
+				
+				// Add additional labels to the layout
+				layout.title = name; // Set the graph title
+				layout.xaxis = { title: 'Time (minutes)' }; // X-axis label
+				layout.yaxis = { title: '€' }; // Y-axis label
+				layout.legend = {
+					orientation: 'h', // Horizontal legend layout
+					x: 0.5, // Center the legend
+					xanchor: 'center'
+				};
+				
                 Plotly.newPlot(elementId, [trace], layout, config);
             }
 
             // Loop through each graph and initialize it
             graphData.forEach((data, index) => {
-                initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y);
+                initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.threshold_buy, data.threshold_sell, data.n_stocks, data.name);
             });
         }
 
