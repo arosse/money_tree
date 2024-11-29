@@ -314,6 +314,17 @@
 				// Add additional labels to the layout
 				layout.xaxis = { title: 'Time (minutes)' }; // X-axis label
 				
+				// Modify legend to overlay on the graph
+				layout.legend = {
+					x: 1,            // Position legend inside the plot area (right side)
+					y: 1,            // Top of the graph
+					xanchor: 'right', // Align legend box to the right
+					yanchor: 'top',   // Align legend box to the top
+					bgcolor: 'rgba(255, 255, 255, 0.5)', // Semi-transparent white background
+					bordercolor: 'black',                // Optional: border for better visibility
+					borderwidth: 1                       // Border width
+				};
+				
                 Plotly.newPlot(elementId, traces, layout, config);
             }
 
