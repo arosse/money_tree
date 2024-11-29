@@ -49,6 +49,26 @@
 			<button id="refresh-btn">&nbsp Refresh Data &nbsp</button>
             <p id="data-value">Loading data...</p>
 			<br>
+
+        </section>
+
+        <section id="chart-section">
+            <h3>Data 01</h3>
+			<div id="plotly-graph-1" class="plotly-graph">
+				<div class="spinner"></div>
+			</div>
+        
+			<h3>Data 02</h3>
+			<div id="plotly-graph-2" class="plotly-graph">
+				<div class="spinner"></div>
+			</div>
+			
+			<h3>Data 03</h3>
+			<div id="plotly-graph-3" class="plotly-graph">
+				<div class="spinner"></div>
+			</div>
+			
+			<h3>Trading Controls</h3>
 			<div class="button-container">
                 <button id="pause-buying-btn" style="display: inline-block; margin-right: 10px;">&nbsp Pause Buying &nbsp</button>
 				<button id="resume-buying-btn" style="display: inline-block;">&nbsp Resume Buying &nbsp</button>
@@ -59,23 +79,7 @@
                 <button id="force-restart-btn">&nbsp Force Restart &nbsp</button>
             </div>
 			<br>
-        </section>
-
-        <section id="chart-section">
-            <h2>Data 01</h2>
-			<div id="plotly-graph-1" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
-        
-			<h2>Data 02</h2>
-			<div id="plotly-graph-2" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
 			
-			<h2>Data 03</h2>
-			<div id="plotly-graph-3" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
         </section>
 		
     </main>
@@ -276,7 +280,7 @@
 					y: dataY,
 					type: 'scatter',
 					mode: 'lines', // Ensures the plot is a line chart
-					name: 'Price' // Legend label
+					name: 'Price (€)' // Legend label
 				};
 
 				// Trace for the buy threshold (red dotted line)
@@ -308,14 +312,7 @@
 				}
 				
 				// Add additional labels to the layout
-				layout.title = name; // Set the graph title
 				layout.xaxis = { title: 'Time (minutes)' }; // X-axis label
-				layout.yaxis = { title: '€' }; // Y-axis label
-				layout.legend = {
-					orientation: 'h', // Horizontal legend layout
-					x: 0.5, // Center the legend
-					xanchor: 'center'
-				};
 				
                 Plotly.newPlot(elementId, traces, layout, config);
             }
