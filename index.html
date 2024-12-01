@@ -53,21 +53,20 @@
         </section>
 
         <section id="chart-section">
-            <h3>Data 01</h3>
-			<div id="plotly-graph-1" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
-        
-			<h3>Data 02</h3>
-			<div id="plotly-graph-2" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
-			
-			<h3>Data 03</h3>
-			<div id="plotly-graph-3" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
-			
+            <h3 id="chart-title-1">Data 01</h3>
+				<div id="plotly-graph-1" class="plotly-graph">
+					<div class="spinner"></div>
+				</div>
+
+				<h3 id="chart-title-2">Data 02</h3>
+				<div id="plotly-graph-2" class="plotly-graph">
+					<div class="spinner"></div>
+				</div>
+
+				<h3 id="chart-title-3">Data 03</h3>
+				<div id="plotly-graph-3" class="plotly-graph">
+					<div class="spinner"></div>
+				</div>
 			<br>
 			
 			<h3>Trading Controls</h3>
@@ -328,6 +327,12 @@
 					borderwidth: 1                       // Border width
 				};
 				
+				// Update the chart title using the unique identifier
+				const titleElement = document.querySelector(`#chart-title-${index}`);
+				if (titleElement) {
+					titleElement.textContent = name; // Set the new title
+				}
+
                 Plotly.newPlot(elementId, traces, layout, config);
             }
 
