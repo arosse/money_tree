@@ -85,7 +85,6 @@
 		
     </main>
 
-
     <footer>
         <p id="footer-text">Footer Text</p>
     </footer>
@@ -148,7 +147,7 @@
             setLoadingState(true);
 			
 			// Add a delay before continuing with the data fetch
-			await delay(300);
+			await delay(200);
 			
 			// Get reference to root or specific path
             const dbRef = ref(getDatabase(), '/data');  // Path to data in Firebase (fetching entire data object)
@@ -261,9 +260,9 @@
             // Reusable layout and config for Plotly
             const layout = {
                 margin: {
-                    t: 5,  // Top margin
+                    t: 10,  // Top margin
                     r: 10,  // Right margin
-                    b: 30,  // Bottom margin
+                    b: 35,  // Bottom margin
                     l: 40   // Left margin
                 }
             };
