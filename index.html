@@ -275,7 +275,7 @@
             };
 
             // Function to initialize each Plotly graph
-            function initPlotlyGraph(elementId, dataX, dataY, dataX2, dataBuyLimit, dataSellLimit, n, name) {			
+            function initPlotlyGraph(index, elementId, dataX, dataY, dataX2, dataBuyLimit, dataSellLimit, n, name) {			
 				// Trace for the main price plot
 				const tracePrice = {
 					x: dataX,
@@ -338,7 +338,7 @@
 
             // Loop through each graph and initialize it
             graphData.forEach((data, index) => {
-                initPlotlyGraph(`plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.threshold_buy, data.threshold_sell, data.n, data.name);
+                initPlotlyGraph(index, `plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.threshold_buy, data.threshold_sell, data.n, data.name);
             });
         }
 
