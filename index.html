@@ -113,7 +113,7 @@
 		
 		// Import necessary functions from Firebase SDK
 		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js";
-		import { getDatabase, ref, get, set, child } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js";
+		import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js";
 		
 		// Initialize Firebase
 		const app = initializeApp(firebaseConfig);
@@ -152,33 +152,27 @@
 			// Add a delay before continuing with the data fetch
 			await delay(300);
 			
-			// Define reference to the 'data' path
-			const dataRef = child(ref(db), 'data');
-
-			// Fetch the entire 'data' node
-			get(dataRef)
-				.then((snapshot) => {
-					if (snapshot.exists()) {
-						const data = snapshot.val();  // Retrieve all data under 'data'
-
-						// Update UI or process the entire data object
-						document.getElementById('data-value').textContent = "Data loaded successfully.";
-						updateGraphs(data);  // Update graphs with the entire 'data' object
-						updateStatus(data);  // Pass data to updateStatus if necessary
-					} else {
-						console.log("No data available under 'data'.");
-						document.getElementById('data-value').textContent = "Failed to load data.";
-					}
-					setLoadingState(false);  // Indicate loading is complete
-				})
-				.catch((error) => {
-					// Handle errors
-					console.error("Error fetching data from Firebase:", error);
-					document.getElementById('data-value').textContent = "Failed to load data.";
-					setLoadingState(false);
-				});
-		}
+			// Get reference to root or specific path
+            const dbRef = ref(getDatabase(), '/');  // Path to data in Firebase (fetching entire data object)
 			
+			get(dbRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();  // Get the whole data object from Firebase
+                    setLoadingState(false);
+                    document.getElementById('data-value').textContent = "Data loaded successfully.";
+                    updateGraphs(data);  // Pass the entire data object to updateGraphs()
+					updateStatus(data);  // Update status and Footer
+                } else {
+                    console.log("No data available");
+                    document.getElementById('data-value').textContent = "Failed to load data.";
+                    setLoadingState(false);
+                }
+            }).catch((error) => {
+                console.error("Error fetching data from Firebase:", error);
+                document.getElementById('data-value').textContent = "Failed to load data.";
+                setLoadingState(false);
+            });
+        }
 		
 		// Function to set the loading state for graphs
         function setLoadingState(isLoading) {
