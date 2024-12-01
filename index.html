@@ -152,50 +152,46 @@
 			// Add a delay before continuing with the data fetch
 			await delay(300);
 			
-			// Define references to the specific keys
-			const dbRef = ref(db);  // Reference to the root of the database
-			const dataRef = child(dbRef, 'data');  // Reference to 'data'
-			const statusRef = child(dbRef, 'status');  // Reference to 'status'
-			const statusUpdateTimeRef = child(dbRef, 'status_update_time');  // Reference to 'status_update_time'
+			// Define reference to the 'data' path
+			const dataRef = child(ref(db), 'data');
+			
+			// Fetch all keys under 'data'
+			get(dataRef)
+				.then((snapshot) => {
+					if (snapshot.exists()) {
+						const data = snapshot.val();  // Retrieve all data under 'data'
 
-			// Fetch the specific keys
-			Promise.all([
-				get(dataRef),
-				get(statusRef),
-				get(statusUpdateTimeRef)
-			]).then(([dataSnapshot, statusSnapshot, statusUpdateTimeSnapshot]) => {
-				// Check and fetch data from snapshots
-				const data = dataSnapshot.exists() ? dataSnapshot.val() : null;
-				const status = statusSnapshot.exists() ? statusSnapshot.val() : null;
-				const statusUpdateTime = statusUpdateTimeSnapshot.exists() ? statusUpdateTimeSnapshot.val() : null;
+						// Extract specific keys
+						const status = data.status || null;
+						const statusUpdateTime = data.status_update_time || null;
 
-				// Update UI or process data
-				if (data) {
-					document.getElementById('data-value').textContent = "Data loaded successfully.";
-					updateGraphs(data);  // Update graphs with 'data'
-				} else {
-					console.log("No data available for 'data'.");
-				}
+						// Update UI or process data
+						if (status) {
+							updateStatus(status);  // Update status in the UI
+						} else {
+							console.log("No data available for 'status'.");
+						}
 
-				if (status) {
-					updateStatus(status);  // Update status in the UI
-				} else {
-					console.log("No data available for 'status'.");
-				}
+						if (statusUpdateTime) {
+							updateFooter(statusUpdateTime);  // Update footer with 'status_update_time'
+						} else {
+							console.log("No data available for 'status_update_time'.");
+						}
 
-				if (statusUpdateTime) {
-					updateFooter(statusUpdateTime);  // Update footer with 'status_update_time'
-				} else {
-					console.log("No data available for 'status_update_time'.");
-				}
-
-				setLoadingState(false);  // Indicate that loading is complete
-			}).catch((error) => {
-				// Handle errors
-				console.error("Error fetching data from Firebase:", error);
-				document.getElementById('data-value').textContent = "Failed to load data.";
-				setLoadingState(false);
-			});
+						document.getElementById('data-value').textContent = "Data loaded successfully.";
+						updateGraphs(data);  // Update graphs with the entire 'data' object
+					} else {
+						console.log("No data available under 'data'.");
+						document.getElementById('data-value').textContent = "Failed to load data.";
+					}
+					setLoadingState(false);  // Indicate loading is complete
+				})
+				.catch((error) => {
+					// Handle errors
+					console.error("Error fetching data from Firebase:", error);
+					document.getElementById('data-value').textContent = "Failed to load data.";
+					setLoadingState(false);
+				});
 		}
 			
 		
