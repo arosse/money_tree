@@ -154,32 +154,17 @@
 			
 			// Define reference to the 'data' path
 			const dataRef = child(ref(db), 'data');
-			
-			// Fetch all keys under 'data'
+
+			// Fetch the entire 'data' node
 			get(dataRef)
 				.then((snapshot) => {
 					if (snapshot.exists()) {
 						const data = snapshot.val();  // Retrieve all data under 'data'
 
-						// Extract specific keys
-						const status = data.status || null;
-						const statusUpdateTime = data.status_update_time || null;
-
-						// Update UI or process data
-						if (status) {
-							updateStatus(status);  // Update status in the UI
-						} else {
-							console.log("No data available for 'status'.");
-						}
-
-						if (statusUpdateTime) {
-							updateFooter(statusUpdateTime);  // Update footer with 'status_update_time'
-						} else {
-							console.log("No data available for 'status_update_time'.");
-						}
-
+						// Update UI or process the entire data object
 						document.getElementById('data-value').textContent = "Data loaded successfully.";
 						updateGraphs(data);  // Update graphs with the entire 'data' object
+						updateStatus(data);  // Pass data to updateStatus if necessary
 					} else {
 						console.log("No data available under 'data'.");
 						document.getElementById('data-value').textContent = "Failed to load data.";
