@@ -327,7 +327,8 @@
 				};
 				
 				// Collect traces based on the value of n
-				const traces = [tracePrice, traceTrend5min, traceTrend15min]; // Always include the price trace and trends
+				const traces = [tracePrice]; // Always include the price
+				traces.push(traceTrend5min, traceTrend15min); // Add both price trends
 				if (n === 0) {
 					traces.push(traceBuyLimit); // Add only the buy threshold
 				} else {
