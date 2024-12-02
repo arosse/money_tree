@@ -273,7 +273,7 @@
             };
 
             // Function to initialize each Plotly graph
-            function initPlotlyGraph(index, elementId, dataX, dataY, dataX2, dataBuyLimit, dataSellLimit, n, name) {			
+            function initPlotlyGraph(index, elementId, dataX, dataY, dataX2, dataX3, traceTrend5min, traceTrend15min dataBuyLimit, dataSellLimit, n, name) {			
 				// Trace for the main price plot
 				const tracePrice = {
 					x: dataX,
@@ -303,8 +303,28 @@
 					name: 'Sell Threshold'
 				};
 				
+				// Trace 5 min trend indicator
+				const traceTrend5min = {
+					x: dataX2,
+					y: Array(dataX3.length).fill(dataTrend5min), // Create a constant y array
+					type: 'scatter',
+					mode: 'lines',
+					line: { color: 'blue', dash: 'dot' }, // Dotted green line
+					name: '5-min Trend'
+				};
+				
+				// Trace 15 min trend indicator
+				const traceTrend15min = {
+					x: dataX2,
+					y: Array(dataX3.length).fill(dataTrend15min), // Create a constant y array
+					type: 'scatter',
+					mode: 'lines',
+					line: { color: 'purple', dash: 'dot' }, // Dotted green line
+					name: '15-min Trend'
+				};
+				
 				// Collect traces based on the value of n
-				const traces = [tracePrice]; // Always include the price trace
+				const traces = [tracePrice, traceTrend5min, traceTrend15min]; // Always include the price trace and trends
 				if (n === 0) {
 					traces.push(traceBuyLimit); // Add only the buy threshold
 				} else {
@@ -316,9 +336,9 @@
 				
 				// Modify legend to overlay on the graph
 				layout.legend = {
-					x: 1,            // Position legend inside the plot area (right side)
+					x: 0,            // Position legend inside the plot area (left side)
 					y: 0,            // Bottom
-					xanchor: 'right', // Align legend box to the right
+					xanchor: 'left', // Align legend box to the left
 					yanchor: 'bottom',   // Align legend box to the bottom
 					bgcolor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
 					bordercolor: 'black',                // Optional: border for better visibility
@@ -336,7 +356,7 @@
 
             // Loop through each graph and initialize it
             graphData.forEach((data, index) => {
-                initPlotlyGraph(index, `plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.threshold_buy, data.threshold_sell, data.n, data.name);
+                initPlotlyGraph(index, `plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.x3, data.price_trend_5min, data.price_trend_15min, data.threshold_buy, data.threshold_sell, data.n, data.name);
             });
         }
 
