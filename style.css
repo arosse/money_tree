@@ -72,6 +72,11 @@ section {
     background-color: yellow !important; /* Ensure yellow is applied */
 }
 
+/* General Pause color */
+#status-indicator.indicator.orange {
+    background-color: orange !important; /* Ensure orange is applied */
+}
+
 #status-indicator.indicator.green {
     background-color: lightgreen !important; /* Ensure green is applied */
 }
