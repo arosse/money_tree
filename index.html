@@ -41,107 +41,118 @@
 
     <main>
         <section id="data-section">
-			<div id="status-container">
+            <div id="status-container">
                 <p id="status-text">Status: <span id="status-value">Unknown</span></p>
                 <div id="status-indicator" class="indicator"></div>
             </div>
-			<button id="refresh-btn">&nbsp Refresh Data &nbsp</button>
+            <button id="refresh-btn">&nbsp Refresh Data &nbsp</button>
             <p id="data-value">Loading data...</p>
-			<br>
-
+            <br>
         </section>
 
         <section id="chart-section">
             <h3 id="chart-title-1">Data 01</h3>
-			<div id="plotly-graph-1" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
+            <div id="plotly-graph-1" class="plotly-graph">
+                <div class="spinner"></div>
+            </div>
 
-			<h3 id="chart-title-2">Data 02</h3>
-			<div id="plotly-graph-2" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
+            <h3 id="chart-title-2">Data 02</h3>
+            <div id="plotly-graph-2" class="plotly-graph">
+                <div class="spinner"></div>
+            </div>
 
-			<h3 id="chart-title-3">Data 03</h3>
-			<div id="plotly-graph-3" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
-			<br>
-			
-			<h3 id="chart-title-4">Data 04</h3>
-			<div id="plotly-graph-4" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
-			<br>
-			
-			<h3 id="chart-title-5">Data 05</h3>
-			<div id="plotly-graph-5" class="plotly-graph">
-				<div class="spinner"></div>
-			</div>
-			<br>
-			
-			<h3>Trading Controls</h3>
-			<div class="button-container">
-				<br>
+            <h3 id="chart-title-3">Data 03</h3>
+            <div id="plotly-graph-3" class="plotly-graph">
+                <div class="spinner"></div>
+            </div>
+            <br>
+
+            <h3 id="chart-title-4">Data 04</h3>
+            <div id="plotly-graph-4" class="plotly-graph">
+                <div class="spinner"></div>
+            </div>
+            <br>
+
+            <h3 id="chart-title-5">Data 05</h3>
+            <div id="plotly-graph-5" class="plotly-graph">
+                <div class="spinner"></div>
+            </div>
+            <br>
+
+            <h3 id="chart-title-6">Data 06</h3>
+            <div id="plotly-graph-6" class="plotly-graph">
+                <div class="spinner"></div>
+            </div>
+            <br>
+
+            <h3 id="chart-title-7">Data 07</h3>
+            <div id="plotly-graph-7" class="plotly-graph">
+                <div class="spinner"></div>
+            </div>
+            <br>
+
+            <h3>Trading Controls</h3>
+            <div class="button-container">
+                <br>
                 <button id="pause-buying-btn" style="display: inline-block; margin-right: 10px;">&nbsp Pause Buying &nbsp</button>
-				<button id="resume-buying-btn" style="display: inline-block;">&nbsp Resume Buying &nbsp</button>
-				<br><br>
+                <button id="resume-buying-btn" style="display: inline-block;">&nbsp Resume Buying &nbsp</button>
+                <br><br>
                 <button id="pause-selling-btn" style="display: inline-block; margin-right: 10px;">&nbsp Pause Selling &nbsp</button>
-				<button id="resume-selling-btn" style="display: inline-block;">&nbsp Resume Selling &nbsp</button>
-				<br><br>
-				<button id="pause-general-btn" style="display: inline-block; margin-right: 10px;">&nbsp Pause Algorithm &nbsp</button>
-				<button id="resume-general-btn" style="display: inline-block;">&nbsp Resume Algorithm &nbsp</button>
-				<br><br>
+                <button id="resume-selling-btn" style="display: inline-block;">&nbsp Resume Selling &nbsp</button>
+                <br><br>
+                <button id="pause-general-btn" style="display: inline-block; margin-right: 10px;">&nbsp Pause Algorithm &nbsp</button>
+                <button id="resume-general-btn" style="display: inline-block;">&nbsp Resume Algorithm &nbsp</button>
+                <br><br>
                 <button id="force-restart-btn">&nbsp Force Restart &nbsp</button>
             </div>
-			<br>
-			
+            <br>
+
         </section>
-		
+
     </main>
 
     <footer>
         <p id="footer-text">Footer Text</p>
     </footer>
-	
-	<!-- Plotly scripts -->
-	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
-	
-	<!-- Firebase SDK -->
+
+    <!-- Plotly scripts -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js" type="module"></script>
     <script src="https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js" type="module"></script>
 
-	<script type="module">			
-		// Your web app's Firebase configuration
-		const firebaseConfig = {
-			apiKey: "AIzaSyDOUk81nMwiwiT8nNI9iX8E6N59ZCepSFg",
-			authDomain: "money-tree-25168.firebaseapp.com",
-			databaseURL: "https://money-tree-25168-default-rtdb.europe-west1.firebasedatabase.app",
-			projectId: "money-tree-25168",
-			storageBucket: "money-tree-25168.firebasestorage.app",
-			messagingSenderId: "605722075398",
-			appId: "1:605722075398:web:1bf1462b8293ec50837e87"
-		};
-		
-		// Import necessary functions from Firebase SDK
-		import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js";
-		import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js";
-		
-		// Initialize Firebase
-		const app = initializeApp(firebaseConfig);
-		const db = getDatabase(app);  // Initialize the database
-		
-		// Function to introduce a delay
-		function delay(ms) {
-			return new Promise(resolve => setTimeout(resolve, ms));
-		}
-		
-		// Function to get the current Unix timestamp in seconds
-		function getCurrentUnixTimestamp() {
-			return Math.floor(Date.now() / 1000);  // This returns the current timestamp in seconds
-		}
-		
-		// Function to update Firebase fields when buttons are clicked
+    <script type="module">          
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOUk81nMwiwiT8nNI9iX8E6N59ZCepSFg",
+            authDomain: "money-tree-25168.firebaseapp.com",
+            databaseURL: "https://money-tree-25168-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "money-tree-25168",
+            storageBucket: "money-tree-25168.firebasestorage.app",
+            messagingSenderId: "605722075398",
+            appId: "1:605722075398:web:1bf1462b8293ec50837e87"
+        };
+
+        // Import necessary functions from Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-app.js";
+        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.19.0/firebase-database.js";
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);  // Initialize the database
+
+        // Function to introduce a delay
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Function to get the current Unix timestamp in seconds
+        function getCurrentUnixTimestamp() {
+            return Math.floor(Date.now() / 1000);  // This returns the current timestamp in seconds
+        }
+
+        // Function to update Firebase fields when buttons are clicked
         function updateFirebaseField(field, value, message) {
             const dbRef = ref(db, field); // 'ref' is used to create a reference to a location in your DB
 
@@ -154,26 +165,26 @@
                 .catch((error) => {
                     console.error('Error updating the Database:', error);
                 });
-		}
+        }
 
-		// Function to fetch the JSON data from Google Firebase
+        // Function to fetch the JSON data from Google Firebase
         async function fetchData() {
-			document.getElementById('data-value').textContent = "Loading data...";
+            document.getElementById('data-value').textContent = "Loading data...";
             setLoadingState(true);
-			
-			// Add a delay before continuing with the data fetch
-			await delay(200);
-			
-			// Get reference to root or specific path
+
+            // Add a delay before continuing with the data fetch
+            await delay(200);
+
+            // Get reference to root or specific path
             const dbRef = ref(getDatabase(), '/data');  // Path to data in Firebase (fetching entire data object)
-			
-			get(dbRef).then((snapshot) => {
+
+            get(dbRef).then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();  // Get the whole data object from Firebase
                     setLoadingState(false);
                     document.getElementById('data-value').textContent = "Data loaded successfully.";
                     updateGraphs(data);  // Pass the entire data object to updateGraphs()
-					updateStatus(data);  // Update status and Footer
+                    updateStatus(data);  // Update status and Footer
                 } else {
                     console.log("No data available");
                     document.getElementById('data-value').textContent = "Failed to load data.";
@@ -185,8 +196,8 @@
                 setLoadingState(false);
             });
         }
-		
-		// Function to set the loading state for graphs
+
+        // Function to set the loading state for graphs
         function setLoadingState(isLoading) {
             const graphs = document.querySelectorAll('.plotly-graph');
             graphs.forEach((graph) => {
@@ -197,91 +208,106 @@
                 }
             });
         }
-		
-		// Function to update the status and footer with the new data
-		function updateStatus(data) {
-			// Check update time compared to current time
-			const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-			const statusUpdateTime = data.status_update_time.unix_timestamp;
-			const maxThreshold = 1200; // Set threshold in seconds (e.g., 20 minutes)
 
-			let status = data.status;
-			if (!statusUpdateTime || currentTime - statusUpdateTime > maxThreshold) {
-				status = 3; // Default status ("Offline") if timestamp is too old
-			}
+        // Function to update the status and footer with the new data
+        function updateStatus(data) {
+            // Check update time compared to current time
+            const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+            const statusUpdateTime = data.status_update_time.unix_timestamp;
+            const maxThreshold = 1200; // Set threshold in seconds (e.g., 20 minutes)
 
-			// Update status text and indicator
-			const statusTextElement = document.getElementById("status-value");
-			const statusIndicatorElement = document.getElementById("status-indicator");
+            let status = data.status;
+            if (!statusUpdateTime || currentTime - statusUpdateTime > maxThreshold) {
+                status = 3; // Default status ("Offline") if timestamp is too old
+            }
 
-			// Map status codes to strings and colors
-			const statusMapping = {
-				0: { text: "Restarting", color: "yellow" },
-				1: { text: "Running", color: "green" },
-				10: { text: "Running (Buying & Selling Paused)", color: "blue" },
-				11: { text: "Running (Selling Paused)", color: "blue" },
-				12: { text: "Running (Buying Paused)", color: "blue" },
-				2: { text: "Standby", color: "yellow" },
-				20: { text: "Standby (Buying & Selling Paused)", color: "yellow" },
-				21: { text: "Standby (Selling Paused)", color: "yellow" },
-				22: { text: "Standby (Buying Paused)", color: "yellow" },
-				3: { text: "Offline", color: "gray" },
-				4: { text: "General Pause", color: "orange" },
-				99: { text: "Error", color: "red" },
-			};
+            // Update status text and indicator
+            const statusTextElement = document.getElementById("status-value");
+            const statusIndicatorElement = document.getElementById("status-indicator");
 
-			const statusInfo = statusMapping[status] || { text: "Unknown", color: "gray" };
+            // Map status codes to strings and colors
+            const statusMapping = {
+                0: { text: "Restarting", color: "yellow" },
+                1: { text: "Running", color: "green" },
+                10: { text: "Running (Buying & Selling Paused)", color: "blue" },
+                11: { text: "Running (Selling Paused)", color: "blue" },
+                12: { text: "Running (Buying Paused)", color: "blue" },
+                2: { text: "Standby", color: "yellow" },
+                20: { text: "Standby (Buying & Selling Paused)", color: "yellow" },
+                21: { text: "Standby (Selling Paused)", color: "yellow" },
+                22: { text: "Standby (Buying Paused)", color: "yellow" },
+                3: { text: "Offline", color: "gray" },
+                4: { text: "General Pause", color: "orange" },
+                99: { text: "Error", color: "red" },
+            };
 
-			// Update the text 
-			statusTextElement.textContent = statusInfo.text;
-			
-			// Remove all classes from the indicator and add the new color class
-			statusIndicatorElement.className = 'indicator';  // Reset to base class
-			statusIndicatorElement.classList.add(statusInfo.color); // Add the new color class
+            const statusInfo = statusMapping[status] || { text: "Unknown", color: "gray" };
 
-			// Update the Footer
-			const footerTextElement = document.getElementById("footer-text");
+            // Update the text 
+            statusTextElement.textContent = statusInfo.text;
 
-			// Format the last update time
-			const { year, month, day, hour, minute, second } = data.status_update_time;
-			
-			// Ensure that day, month, hour, minute, and second are always two digits
-			const formattedDay = String(day).padStart(2, '0');
-			const formattedMonth = String(month).padStart(2, '0');
-			const formattedHour = String(hour).padStart(2, '0');
-			const formattedMinute = String(minute).padStart(2, '0');
-			const formattedSecond = String(second).padStart(2, '0');
+            // Remove all classes from the indicator and add the new color class
+            statusIndicatorElement.className = 'indicator';  // Reset to base class
+            statusIndicatorElement.classList.add(statusInfo.color); // Add the new color class
 
-			// Combine into the final formatted time string
-			const formattedTime = `${formattedDay}/${formattedMonth}/${year} ${formattedHour}:${formattedMinute}:${formattedSecond}`;
+            // Update the Footer
+            const footerTextElement = document.getElementById("footer-text");
 
-			// Update the footer text
-			footerTextElement.textContent = `Last update: ${formattedTime}`;
-		};
-		
-		// Function to update the graphs with the new data
+            // Format the last update time
+            const { year, month, day, hour, minute, second } = data.status_update_time;
+
+            // Ensure that day, month, hour, minute, and second are always two digits
+            const formattedDay = String(day).padStart(2, '0');
+            const formattedMonth = String(month).padStart(2, '0');
+            const formattedHour = String(hour).padStart(2, '0');
+            const formattedMinute = String(minute).padStart(2, '0');
+            const formattedSecond = String(second).padStart(2, '0');
+
+            // Combine into the final formatted time string
+            const formattedTime = `${formattedDay}/${formattedMonth}/${year} ${formattedHour}:${formattedMinute}:${formattedSecond}`;
+
+            // Update the footer text
+            footerTextElement.textContent = `Last update: ${formattedTime}`;
+        };
+
+        // Function to update the graphs with the new data
         function updateGraphs(data) {
             const graphData = [
                 { x: data.data_01.x, y: data.data_01.y, title: data.data_01.name, x2: data.data_01.x2, 
-				x3: data.data_01.x3, price_trend_5min: data.data_01.price_trend_5min, price_trend_15min: data.data_01.price_trend_15min, 
-				threshold_buy: data.data_01.threshold_buy, threshold_sell: data.data_01.threshold_sell, 
-				n: data.data_01.n, name: data.data_01.name},
+                  x3: data.data_01.x3, price_trend_5min: data.data_01.price_trend_5min, price_trend_15min: data.data_01.price_trend_15min, 
+                  threshold_buy: data.data_01.threshold_buy, threshold_sell: data.data_01.threshold_sell, 
+                  n: data.data_01.n, name: data.data_01.name 
+                },
                 { x: data.data_02.x, y: data.data_02.y, title: data.data_02.name, x2: data.data_02.x2, 
-				x3: data.data_02.x3, price_trend_5min: data.data_02.price_trend_5min, price_trend_15min: data.data_02.price_trend_15min, 
-				threshold_buy: data.data_02.threshold_buy, threshold_sell: data.data_02.threshold_sell, 
-				n: data.data_02.n, name: data.data_02.name},
+                  x3: data.data_02.x3, price_trend_5min: data.data_02.price_trend_5min, price_trend_15min: data.data_02.price_trend_15min, 
+                  threshold_buy: data.data_02.threshold_buy, threshold_sell: data.data_02.threshold_sell, 
+                  n: data.data_02.n, name: data.data_02.name 
+                },
                 { x: data.data_03.x, y: data.data_03.y, title: data.data_03.name, x2: data.data_03.x2, 
-				x3: data.data_03.x3, price_trend_5min: data.data_03.price_trend_5min, price_trend_15min: data.data_03.price_trend_15min,  
-				threshold_buy: data.data_03.threshold_buy, threshold_sell: data.data_03.threshold_sell, 
-				n: data.data_03.n, name: data.data_03.name},
-				{ x: data.data_04.x, y: data.data_04.y, title: data.data_04.name, x2: data.data_04.x2, 
-				x3: data.data_04.x3, price_trend_5min: data.data_04.price_trend_5min, price_trend_15min: data.data_04.price_trend_15min,  
-				threshold_buy: data.data_04.threshold_buy, threshold_sell: data.data_04.threshold_sell, 
-				n: data.data_04.n, name: data.data_04.name},
-				{ x: data.data_05.x, y: data.data_05.y, title: data.data_05.name, x2: data.data_05.x2, 
-				x3: data.data_05.x3, price_trend_5min: data.data_05.price_trend_5min, price_trend_15min: data.data_05.price_trend_15min,  
-				threshold_buy: data.data_05.threshold_buy, threshold_sell: data.data_05.threshold_sell, 
-				n: data.data_05.n, name: data.data_05.name},
+                  x3: data.data_03.x3, price_trend_5min: data.data_03.price_trend_5min, price_trend_15min: data.data_03.price_trend_15min,  
+                  threshold_buy: data.data_03.threshold_buy, threshold_sell: data.data_03.threshold_sell, 
+                  n: data.data_03.n, name: data.data_03.name 
+                },
+                { x: data.data_04.x, y: data.data_04.y, title: data.data_04.name, x2: data.data_04.x2, 
+                  x3: data.data_04.x3, price_trend_5min: data.data_04.price_trend_5min, price_trend_15min: data.data_04.price_trend_15min,  
+                  threshold_buy: data.data_04.threshold_buy, threshold_sell: data.data_04.threshold_sell, 
+                  n: data.data_04.n, name: data.data_04.name 
+                },
+                { x: data.data_05.x, y: data.data_05.y, title: data.data_05.name, x2: data.data_05.x2, 
+                  x3: data.data_05.x3, price_trend_5min: data.data_05.price_trend_5min, price_trend_15min: data.data_05.price_trend_15min,  
+                  threshold_buy: data.data_05.threshold_buy, threshold_sell: data.data_05.threshold_sell, 
+                  n: data.data_05.n, name: data.data_05.name 
+                },
+                { x: data.data_06.x, y: data.data_06.y, title: data.data_06.name, x2: data.data_06.x2, 
+                  x3: data.data_06.x3, price_trend_5min: data.data_06.price_trend_5min, price_trend_15min: data.data_06.price_trend_15min,  
+                  threshold_buy: data.data_06.threshold_buy, threshold_sell: data.data_06.threshold_sell, 
+                  n: data.data_06.n, name: data.data_06.name 
+                },
+                { x: data.data_07.x, y: data.data_07.y, title: data.data_07.name, x2: data.data_07.x2, 
+                  x3: data.data_07.x3, price_trend_5min: data.data_07.price_trend_5min, price_trend_15min: data.data_07.price_trend_15min,  
+                  threshold_buy: data.data_07.threshold_buy, threshold_sell: data.data_07.threshold_sell, 
+                  n: data.data_07.n, name: data.data_07.name 
+                }
             ];
 
             // Reusable layout and config for Plotly
@@ -300,83 +326,83 @@
             };
 
             // Function to initialize each Plotly graph
-            function initPlotlyGraph(index, elementId, dataX, dataY, dataX2, dataX3, dataTrend5min, dataTrend15min, dataBuyLimit, dataSellLimit, n, name) {			
-				// Trace for the main price plot
-				const tracePrice = {
-					x: dataX,
-					y: dataY,
-					type: 'scatter',
-					mode: 'lines', // Ensures the plot is a line chart
-					name: 'Price (€)' // Legend label
-				};
+            function initPlotlyGraph(index, elementId, dataX, dataY, dataX2, dataX3, dataTrend5min, dataTrend15min, dataBuyLimit, dataSellLimit, n, name) {         
+                // Trace for the main price plot
+                const tracePrice = {
+                    x: dataX,
+                    y: dataY,
+                    type: 'scatter',
+                    mode: 'lines', // Ensures the plot is a line chart
+                    name: 'Price (€)' // Legend label
+                };
 
-				// Trace for the buy threshold (red dotted line)
-				const traceBuyLimit = {
-					x: dataX2,
-					y: Array(dataX2.length).fill(dataBuyLimit), // Create a constant y array
-					type: 'scatter',
-					mode: 'lines',
-					line: { color: 'red', dash: 'dot' }, // Dotted red line
-					name: 'Buy Threshold'
-				};
+                // Trace for the buy threshold (red dotted line)
+                const traceBuyLimit = {
+                    x: dataX2,
+                    y: Array(dataX2.length).fill(dataBuyLimit), // Create a constant y array
+                    type: 'scatter',
+                    mode: 'lines',
+                    line: { color: 'red', dash: 'dot' }, // Dotted red line
+                    name: 'Buy Threshold'
+                };
 
-				// Trace for the sell threshold (green dotted line)
-				const traceSellLimit = {
-					x: dataX2,
-					y: Array(dataX2.length).fill(dataSellLimit), // Create a constant y array
-					type: 'scatter',
-					mode: 'lines',
-					line: { color: 'green', dash: 'dot' }, // Dotted green line
-					name: 'Sell Threshold'
-				};
-				
-				// Trace 5 min trend indicator
-				const traceTrend5min = {
-					x: dataX3,
-					y: dataTrend5min, 
-					type: 'scatter',
-					mode: 'lines',
-					line: { color: 'blue', dash: 'dot' }, // Dotted green line
-					name: '5-min Trend'
-				};
-				
-				// Trace 15 min trend indicator
-				const traceTrend15min = {
-					x: dataX3,
-					y: dataTrend15min, 
-					type: 'scatter',
-					mode: 'lines',
-					line: { color: 'lightskyblue', dash: 'dot' }, // Dotted green line
-					name: '15-min Trend'
-				};
-				
-				// Collect traces based on the value of n
-				const traces = [tracePrice, traceTrend5min, traceTrend15min]; // Always include the price and  price trends
-				if (n === 0) {
-					traces.push(traceBuyLimit); // Add only the buy threshold
-				} else {
-					traces.push(traceBuyLimit, traceSellLimit); // Add both thresholds
-				}
-				
-				// Add additional labels to the layout
-				layout.xaxis = { title: 'Time (minutes)' }; // X-axis label
-				
-				// Modify legend to overlay on the graph
-				layout.legend = {
-					x: 0,            // Position legend inside the plot area (left side)
-					y: 0,            // Bottom
-					xanchor: 'left', // Align legend box to the left
-					yanchor: 'bottom',   // Align legend box to the bottom
-					bgcolor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
-					bordercolor: 'black',                // Optional: border for better visibility
-					borderwidth: 1                       // Border width
-				};
-				
-				// Update the chart title using the unique identifier
-				const titleElement = document.querySelector(`#chart-title-${index + 1}`);
-				if (titleElement) {
-					titleElement.textContent = name + " (" + n + " stocks)";  // Set the new title
-				}
+                // Trace for the sell threshold (green dotted line)
+                const traceSellLimit = {
+                    x: dataX2,
+                    y: Array(dataX2.length).fill(dataSellLimit), // Create a constant y array
+                    type: 'scatter',
+                    mode: 'lines',
+                    line: { color: 'green', dash: 'dot' }, // Dotted green line
+                    name: 'Sell Threshold'
+                };
+
+                // Trace 5 min trend indicator
+                const traceTrend5min = {
+                    x: dataX3,
+                    y: dataTrend5min, 
+                    type: 'scatter',
+                    mode: 'lines',
+                    line: { color: 'blue', dash: 'dot' },
+                    name: '5-min Trend'
+                };
+
+                // Trace 15 min trend indicator
+                const traceTrend15min = {
+                    x: dataX3,
+                    y: dataTrend15min, 
+                    type: 'scatter',
+                    mode: 'lines',
+                    line: { color: 'lightskyblue', dash: 'dot' },
+                    name: '15-min Trend'
+                };
+
+                // Collect traces based on the value of n
+                const traces = [tracePrice, traceTrend5min, traceTrend15min]; // Always include the price and  price trends
+                if (n === 0) {
+                    traces.push(traceBuyLimit); // Add only the buy threshold
+                } else {
+                    traces.push(traceBuyLimit, traceSellLimit); // Add both thresholds
+                }
+
+                // Add additional labels to the layout
+                layout.xaxis = { title: 'Time (minutes)' }; // X-axis label
+
+                // Modify legend to overlay on the graph
+                layout.legend = {
+                    x: 0,            // Position legend inside the plot area (left side)
+                    y: 0,            // Bottom
+                    xanchor: 'left', // Align legend box to the left
+                    yanchor: 'bottom',   // Align legend box to the bottom
+                    bgcolor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
+                    bordercolor: 'black',                // Optional: border for better visibility
+                    borderwidth: 1                       // Border width
+                };
+
+                // Update the chart title using the unique identifier
+                const titleElement = document.querySelector(`#chart-title-${index + 1}`);
+                if (titleElement) {
+                    titleElement.textContent = name + " (" + n + " stocks)";  // Set the new title
+                }
 
                 Plotly.newPlot(elementId, traces, layout, config);
             }
@@ -389,199 +415,199 @@
 
         // Attach event listener to the refresh button
         document.getElementById("refresh-btn").addEventListener("click", fetchData);
-		
-		// Attach event listener to the "Pause Buying" button
+
+        // Attach event listener to the "Pause Buying" button
         document.getElementById("pause-buying-btn").addEventListener("click", function() {
             // Request the password via a prompt
-			const password = prompt("Enter the password to pause buying:");
-			
-			 // Check if the user entered a password (not null or empty)
-			if (password !== null && password.trim() !== "") {
-				// Check if the entered password is a valid number
-				if (!isNaN(password)) {
-					// Perform transformation: multiply the numeric password by 1992
-					const transformedPassword = parseInt(password, 10) * 1992;
+            const password = prompt("Enter the password to pause buying:");
 
-					// Combine timestamp with the transformed password as a string
-					const timestamp = getCurrentUnixTimestamp();
-					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+             // Check if the user entered a password (not null or empty)
+            if (password !== null && password.trim() !== "") {
+                // Check if the entered password is a valid number
+                if (!isNaN(password)) {
+                    // Perform transformation: multiply the numeric password by 1992
+                    const transformedPassword = parseInt(password, 10) * 1992;
 
-					// Update the "pause_buy_cmd" field with the encoded value
-					const msg = 'Pause Buying command successfully sent';
-					updateFirebaseField('pause_buy_cmd', encodedValue, msg);
-				} else {
-					alert("Invalid password entered. Please enter a numeric value.");
-				}
-			} else {
-				alert("No password entered. Command not sent.");
-			}
+                    // Combine timestamp with the transformed password as a string
+                    const timestamp = getCurrentUnixTimestamp();
+                    const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+                    // Update the "pause_buy_cmd" field with the encoded value
+                    const msg = 'Pause Buying command successfully sent';
+                    updateFirebaseField('pause_buy_cmd', encodedValue, msg);
+                } else {
+                    alert("Invalid password entered. Please enter a numeric value.");
+                }
+            } else {
+                alert("No password entered. Command not sent.");
+            }
         });
-		
-		// Attach event listener to the "Resume Buying" button
+
+        // Attach event listener to the "Resume Buying" button
         document.getElementById("resume-buying-btn").addEventListener("click", function() {
             // Request the password via a prompt
-			const password = prompt("Enter the password to resume buying:");
-			
-			 // Check if the user entered a password (not null or empty)
-			if (password !== null && password.trim() !== "") {
-				// Check if the entered password is a valid number
-				if (!isNaN(password)) {
-					// Perform transformation: multiply the numeric password by 1992
-					const transformedPassword = parseInt(password, 10) * 1992;
+            const password = prompt("Enter the password to resume buying:");
 
-					// Combine timestamp with the transformed password as a string
-					const timestamp = getCurrentUnixTimestamp();
-					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+             // Check if the user entered a password (not null or empty)
+            if (password !== null && password.trim() !== "") {
+                // Check if the entered password is a valid number
+                if (!isNaN(password)) {
+                    // Perform transformation: multiply the numeric password by 1992
+                    const transformedPassword = parseInt(password, 10) * 1992;
 
-					// Update the "resume_buy_cmd" field with the encoded value
-					const msg = 'Resume Buying command successfully sent';
-					updateFirebaseField('resume_buy_cmd', encodedValue, msg);
-				} else {
-					alert("Invalid password entered. Please enter a numeric value.");
-				}
-			} else {
-				alert("No password entered. Command not sent.");
-			}
+                    // Combine timestamp with the transformed password as a string
+                    const timestamp = getCurrentUnixTimestamp();
+                    const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+                    // Update the "resume_buy_cmd" field with the encoded value
+                    const msg = 'Resume Buying command successfully sent';
+                    updateFirebaseField('resume_buy_cmd', encodedValue, msg);
+                } else {
+                    alert("Invalid password entered. Please enter a numeric value.");
+                }
+            } else {
+                alert("No password entered. Command not sent.");
+            }
         });
-		
-		// Attach event listener to the "Pause Selling" button
+
+        // Attach event listener to the "Pause Selling" button
         document.getElementById("pause-selling-btn").addEventListener("click", function() {
-			// Request the password via a prompt
-			const password = prompt("Enter the password to pause selling:");
-			
-			 // Check if the user entered a password (not null or empty)
-			if (password !== null && password.trim() !== "") {
-				// Check if the entered password is a valid number
-				if (!isNaN(password)) {
-					// Perform transformation: multiply the numeric password by 1992
-					const transformedPassword = parseInt(password, 10) * 1992;
+            // Request the password via a prompt
+            const password = prompt("Enter the password to pause selling:");
 
-					// Combine timestamp with the transformed password as a string
-					const timestamp = getCurrentUnixTimestamp();
-					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+             // Check if the user entered a password (not null or empty)
+            if (password !== null && password.trim() !== "") {
+                // Check if the entered password is a valid number
+                if (!isNaN(password)) {
+                    // Perform transformation: multiply the numeric password by 1992
+                    const transformedPassword = parseInt(password, 10) * 1992;
 
-					// Update the "pause_sell_cmd" field with the encoded value
-					const msg = 'Pause Selling command successfully sent';
-					updateFirebaseField('pause_sell_cmd', encodedValue, msg);
-				} else {
-					alert("Invalid password entered. Please enter a numeric value.");
-				}
-			} else {
-				alert("No password entered. Command not sent.");
-			}
+                    // Combine timestamp with the transformed password as a string
+                    const timestamp = getCurrentUnixTimestamp();
+                    const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+                    // Update the "pause_sell_cmd" field with the encoded value
+                    const msg = 'Pause Selling command successfully sent';
+                    updateFirebaseField('pause_sell_cmd', encodedValue, msg);
+                } else {
+                    alert("Invalid password entered. Please enter a numeric value.");
+                }
+            } else {
+                alert("No password entered. Command not sent.");
+            }
         });
-		
-		// Attach event listener to the "Resume Selling" button
+
+        // Attach event listener to the "Resume Selling" button
         document.getElementById("resume-selling-btn").addEventListener("click", function() {
-			// Request the password via a prompt
-			const password = prompt("Enter the password to resume selling:");
-			
-			 // Check if the user entered a password (not null or empty)
-			if (password !== null && password.trim() !== "") {
-				// Check if the entered password is a valid number
-				if (!isNaN(password)) {
-					// Perform transformation: multiply the numeric password by 1992
-					const transformedPassword = parseInt(password, 10) * 1992;
+            // Request the password via a prompt
+            const password = prompt("Enter the password to resume selling:");
 
-					// Combine timestamp with the transformed password as a string
-					const timestamp = getCurrentUnixTimestamp();
-					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+             // Check if the user entered a password (not null or empty)
+            if (password !== null && password.trim() !== "") {
+                // Check if the entered password is a valid number
+                if (!isNaN(password)) {
+                    // Perform transformation: multiply the numeric password by 1992
+                    const transformedPassword = parseInt(password, 10) * 1992;
 
-					// Update the "resume_sell_cmd" field with the encoded value
-					const msg = 'Resume Selling command successfully sent';
-					updateFirebaseField('resume_sell_cmd', encodedValue, msg);
-				} else {
-					alert("Invalid password entered. Please enter a numeric value.");
-				}
-			} else {
-				alert("No password entered. Command not sent.");
-			}
+                    // Combine timestamp with the transformed password as a string
+                    const timestamp = getCurrentUnixTimestamp();
+                    const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+                    // Update the "resume_sell_cmd" field with the encoded value
+                    const msg = 'Resume Selling command successfully sent';
+                    updateFirebaseField('resume_sell_cmd', encodedValue, msg);
+                } else {
+                    alert("Invalid password entered. Please enter a numeric value.");
+                }
+            } else {
+                alert("No password entered. Command not sent.");
+            }
         });
-		
-		// Attach event listener to the "Pause Algorithm" button
+
+        // Attach event listener to the "Pause Algorithm" button
         document.getElementById("pause-general-btn").addEventListener("click", function() {
-			// Request the password via a prompt
-			const password = prompt("Enter the password to pause algorithm:");
-			
-			 // Check if the user entered a password (not null or empty)
-			if (password !== null && password.trim() !== "") {
-				// Check if the entered password is a valid number
-				if (!isNaN(password)) {
-					// Perform transformation: multiply the numeric password by 1992
-					const transformedPassword = parseInt(password, 10) * 1992;
+            // Request the password via a prompt
+            const password = prompt("Enter the password to pause algorithm:");
 
-					// Combine timestamp with the transformed password as a string
-					const timestamp = getCurrentUnixTimestamp();
-					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+             // Check if the user entered a password (not null or empty)
+            if (password !== null && password.trim() !== "") {
+                // Check if the entered password is a valid number
+                if (!isNaN(password)) {
+                    // Perform transformation: multiply the numeric password by 1992
+                    const transformedPassword = parseInt(password, 10) * 1992;
 
-					// Update the "pause_sell_cmd" field with the encoded value
-					const msg = 'Pause Algorithm command successfully sent';
-					updateFirebaseField('pause_general_cmd', encodedValue, msg);
-				} else {
-					alert("Invalid password entered. Please enter a numeric value.");
-				}
-			} else {
-				alert("No password entered. Command not sent.");
-			}
+                    // Combine timestamp with the transformed password as a string
+                    const timestamp = getCurrentUnixTimestamp();
+                    const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+                    // Update the "pause_sell_cmd" field with the encoded value
+                    const msg = 'Pause Algorithm command successfully sent';
+                    updateFirebaseField('pause_general_cmd', encodedValue, msg);
+                } else {
+                    alert("Invalid password entered. Please enter a numeric value.");
+                }
+            } else {
+                alert("No password entered. Command not sent.");
+            }
         });
-		
-		// Attach event listener to the "Resume Algorithm" button
+
+        // Attach event listener to the "Resume Algorithm" button
         document.getElementById("resume-general-btn").addEventListener("click", function() {
-			// Request the password via a prompt
-			const password = prompt("Enter the password to resume algorithm:");
-			
-			 // Check if the user entered a password (not null or empty)
-			if (password !== null && password.trim() !== "") {
-				// Check if the entered password is a valid number
-				if (!isNaN(password)) {
-					// Perform transformation: multiply the numeric password by 1992
-					const transformedPassword = parseInt(password, 10) * 1992;
+            // Request the password via a prompt
+            const password = prompt("Enter the password to resume algorithm:");
 
-					// Combine timestamp with the transformed password as a string
-					const timestamp = getCurrentUnixTimestamp();
-					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+             // Check if the user entered a password (not null or empty)
+            if (password !== null && password.trim() !== "") {
+                // Check if the entered password is a valid number
+                if (!isNaN(password)) {
+                    // Perform transformation: multiply the numeric password by 1992
+                    const transformedPassword = parseInt(password, 10) * 1992;
 
-					// Update the "resume_sell_cmd" field with the encoded value
-					const msg = 'Resume Algorithm command successfully sent';
-					updateFirebaseField('resume_general_cmd', encodedValue, msg);
-				} else {
-					alert("Invalid password entered. Please enter a numeric value.");
-				}
-			} else {
-				alert("No password entered. Command not sent.");
-			}
+                    // Combine timestamp with the transformed password as a string
+                    const timestamp = getCurrentUnixTimestamp();
+                    const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+                    // Update the "resume_sell_cmd" field with the encoded value
+                    const msg = 'Resume Algorithm command successfully sent';
+                    updateFirebaseField('resume_general_cmd', encodedValue, msg);
+                } else {
+                    alert("Invalid password entered. Please enter a numeric value.");
+                }
+            } else {
+                alert("No password entered. Command not sent.");
+            }
         });
-		
-		// Attach event listener to the "Reset" button
+
+        // Attach event listener to the "Reset" button
         document.getElementById("force-restart-btn").addEventListener("click", function() {
             // Request the password via a prompt
-			const password = prompt("Enter the password to Force Restart:");
-			
-			 // Check if the user entered a password (not null or empty)
-			if (password !== null && password.trim() !== "") {
-				// Check if the entered password is a valid number
-				if (!isNaN(password)) {
-					// Perform transformation: multiply the numeric password by 1992
-					const transformedPassword = parseInt(password, 10) * 1992;
+            const password = prompt("Enter the password to Force Restart:");
 
-					// Combine timestamp with the transformed password as a string
-					const timestamp = getCurrentUnixTimestamp();
-					const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+             // Check if the user entered a password (not null or empty)
+            if (password !== null && password.trim() !== "") {
+                // Check if the entered password is a valid number
+                if (!isNaN(password)) {
+                    // Perform transformation: multiply the numeric password by 1992
+                    const transformedPassword = parseInt(password, 10) * 1992;
 
-					// Update the "reset_command" field with the encoded value
-					const msg = 'Force Restart command successfully sent';
-					updateFirebaseField('reset_command', encodedValue, msg);
-				} else {
-					alert("Invalid password entered. Please enter a numeric value.");
-				}
-			} else {
-				alert("No password entered. Command not sent.");
-			}
-		});
+                    // Combine timestamp with the transformed password as a string
+                    const timestamp = getCurrentUnixTimestamp();
+                    const encodedValue = `${timestamp}${transformedPassword}`; // String concatenation
+
+                    // Update the "reset_command" field with the encoded value
+                    const msg = 'Force Restart command successfully sent';
+                    updateFirebaseField('reset_command', encodedValue, msg);
+                } else {
+                    alert("Invalid password entered. Please enter a numeric value.");
+                }
+            } else {
+                alert("No password entered. Command not sent.");
+            }
+        });
 
         // Call fetchData when the page loads (optional)
         fetchData();
-		
+
     </script>
 
 </body>
