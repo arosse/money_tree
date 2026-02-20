@@ -107,6 +107,24 @@
             </div>
             <br>
 
+			<h3>Remote Console</h3>
+			<div id="console-container" style="
+				background-color: #1e1e1e;
+				color: #d4d4d4;
+				font-family: 'Courier New', monospace;
+				font-size: 13px;
+				padding: 12px;
+				border-radius: 6px;
+				height: 300px;
+				overflow-y: auto;
+				display: flex;
+				flex-direction: column-reverse;
+			">
+				<div id="console-messages">
+					<p style="color: #888;">No messages yet. Click Refresh Data to load.</p>
+				</div>
+			</div>
+
         </section>
 
     </main>
@@ -185,6 +203,7 @@
                     document.getElementById('data-value').textContent = "Data loaded successfully.";
                     updateGraphs(data);  // Pass the entire data object to updateGraphs()
                     updateStatus(data);  // Update status and Footer
+					updateConsole(data); // Update remote console
                 } else {
                     console.log("No data available");
                     document.getElementById('data-value').textContent = "Failed to load data.";
@@ -269,6 +288,30 @@
             // Update the footer text
             footerTextElement.textContent = `Last update: ${formattedTime}`;
         };
+		
+		function updateConsole(data) {
+			const container = document.getElementById('console-messages');
+			if (!data.logs) {
+				container.innerHTML = '<p style="color: #888;">No log messages available.</p>';
+				return;
+			}
+
+			const messages = Object.keys(data.logs)
+				.sort()
+				.map(key => data.logs[key]);
+
+			container.innerHTML = messages.map(function(msg) {
+				var color = '#d4d4d4';
+				if (msg.toLowerCase().includes('error')) color = '#f48771';
+				else if (msg.toLowerCase().includes('warning')) color = '#dcdcaa';
+				else if (msg.toLowerCase().includes('buy')) color = '#4ec9b0';
+				else if (msg.toLowerCase().includes('sell')) color = '#569cd6';
+				return '<p style="margin: 2px 0; color: ' + color + ';">' + msg + '</p>';
+			}).join('');
+
+			const outerContainer = document.getElementById('console-container');
+			outerContainer.scrollTop = outerContainer.scrollHeight;
+		}
 
         // Function to update the graphs with the new data
         function updateGraphs(data) {
@@ -607,6 +650,8 @@
 
         // Call fetchData when the page loads (optional)
         fetchData();
+		
+
 
     </script>
 
