@@ -444,7 +444,7 @@
                 // Update the chart title using the unique identifier
                 const titleElement = document.querySelector(`#chart-title-${index + 1}`);
                 if (titleElement) {
-                    titleElement.textContent = name + " (" + n + " stocks) - BEP: " + bep + " €";  // Set the new title
+                    titleElement.textContent = name + " (" + n + " stocks) - BEP: " + n + " €";  // Set the new title
                 }
 
                 Plotly.newPlot(elementId, traces, layout, config);
