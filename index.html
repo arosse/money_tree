@@ -314,125 +314,132 @@
 		}
 
         // Function to update the graphs with the new data
-        const graphData = Array.from({ length: 7 }, (_, i) => {
-			const d = data[`data_0${i + 1}`];
-			return {
-				x: d.x,
-				y: d.y,
-				title: d.name,
-				x2: d.x2,
-				x3: d.x3,
-				price_trend_5min: d.price_trend_5min,
-				price_trend_15min: d.price_trend_15min,
-				threshold_buy: d.threshold_buy,
-				threshold_sell: d.threshold_sell,
-				n: d.n,
-				name: d.name,
-				bep: d.bep
+        function updateGraphs(data) {
+			const graphData = Array.from({ length: 7 }, (_, i) => {
+				const d = data[`data_0${i + 1}`];
+				return {
+					x: d.x,
+					y: d.y,
+					title: d.name,
+					x2: d.x2,
+					x3: d.x3,
+					price_trend_5min: d.price_trend_5min,
+					price_trend_15min: d.price_trend_15min,
+					threshold_buy: d.threshold_buy,
+					threshold_sell: d.threshold_sell,
+					n: d.n,
+					name: d.name,
+					bep: d.bep
+				};
+			});
+
+			const layout = {
+				margin: { t: 10, r: 10, b: 35, l: 40 }
 			};
-		});
-            // Reusable layout and config for Plotly
-            const layout = {
-                margin: {
-                    t: 10,  // Top margin
-                    r: 10,  // Right margin
-                    b: 35,  // Bottom margin
-                    l: 40   // Left margin
-                }
-            };
 
-            const config = {
-                modeBarButtonsToRemove: ['toImage', 'select2d', 'lasso2d', 'hoverClosestCartesian', 'toggleSpikelines', 'hoverCompareCartesian', 'autoScale2d'],
-                displaylogo: false
-            };
+			const config = {
+				modeBarButtonsToRemove: [
+					'toImage',
+					'select2d',
+					'lasso2d',
+					'hoverClosestCartesian',
+					'toggleSpikelines',
+					'hoverCompareCartesian',
+					'autoScale2d'
+				],
+				displaylogo: false
+			};
 
-            // Function to initialize each Plotly graph
-            function initPlotlyGraph(index, elementId, dataX, dataY, dataX2, dataX3, dataTrend5min, dataTrend15min, dataBuyLimit, dataSellLimit, n, name, bep) {         
-                // Trace for the main price plot
-                const tracePrice = {
-                    x: dataX,
-                    y: dataY,
-                    type: 'scatter',
-                    mode: 'lines', // Ensures the plot is a line chart
-                    name: 'Price (€)' // Legend label
-                };
+			function initPlotlyGraph(index, elementId, dataX, dataY, dataX2, dataX3, dataTrend5min, dataTrend15min, dataBuyLimit, dataSellLimit, n, name, bep) {
+				const tracePrice = {
+					x: dataX,
+					y: dataY,
+					type: 'scatter',
+					mode: 'lines',
+					name: 'Price (€)'
+				};
 
-                // Trace for the buy threshold (red dotted line)
-                const traceBuyLimit = {
-                    x: dataX2,
-                    y: Array(dataX2.length).fill(dataBuyLimit), // Create a constant y array
-                    type: 'scatter',
-                    mode: 'lines',
-                    line: { color: 'red', dash: 'dot' }, // Dotted red line
-                    name: 'Buy Threshold'
-                };
+				const traceBuyLimit = {
+					x: dataX2,
+					y: Array(dataX2.length).fill(dataBuyLimit),
+					type: 'scatter',
+					mode: 'lines',
+					line: { color: 'red', dash: 'dot' },
+					name: 'Buy Threshold'
+				};
 
-                // Trace for the sell threshold (green dotted line)
-                const traceSellLimit = {
-                    x: dataX2,
-                    y: Array(dataX2.length).fill(dataSellLimit), // Create a constant y array
-                    type: 'scatter',
-                    mode: 'lines',
-                    line: { color: 'green', dash: 'dot' }, // Dotted green line
-                    name: 'Sell Threshold'
-                };
+				const traceSellLimit = {
+					x: dataX2,
+					y: Array(dataX2.length).fill(dataSellLimit),
+					type: 'scatter',
+					mode: 'lines',
+					line: { color: 'green', dash: 'dot' },
+					name: 'Sell Threshold'
+				};
 
-                // Trace 5 min trend indicator
-                const traceTrend5min = {
-                    x: dataX3,
-                    y: dataTrend5min, 
-                    type: 'scatter',
-                    mode: 'lines',
-                    line: { color: 'blue', dash: 'dot' },
-                    name: '5-min Trend'
-                };
+				const traceTrend5min = {
+					x: dataX3,
+					y: dataTrend5min,
+					type: 'scatter',
+					mode: 'lines',
+					line: { color: 'blue', dash: 'dot' },
+					name: '5-min Trend'
+				};
 
-                // Trace 15 min trend indicator
-                const traceTrend15min = {
-                    x: dataX3,
-                    y: dataTrend15min, 
-                    type: 'scatter',
-                    mode: 'lines',
-                    line: { color: 'lightskyblue', dash: 'dot' },
-                    name: '15-min Trend'
-                };
+				const traceTrend15min = {
+					x: dataX3,
+					y: dataTrend15min,
+					type: 'scatter',
+					mode: 'lines',
+					line: { color: 'lightskyblue', dash: 'dot' },
+					name: '15-min Trend'
+				};
 
-                // Collect traces based on the value of n
-                const traces = [tracePrice, traceTrend5min, traceTrend15min]; // Always include the price and  price trends
-                if (n === 0) {
-                    traces.push(traceBuyLimit); // Add only the buy threshold
-                } else {
-                    traces.push(traceBuyLimit, traceSellLimit); // Add both thresholds
-                }
+				const traces = [tracePrice, traceTrend5min, traceTrend15min];
+				if (n === 0) {
+					traces.push(traceBuyLimit);
+				} else {
+					traces.push(traceBuyLimit, traceSellLimit);
+				}
 
-                // Add additional labels to the layout
-                layout.xaxis = { title: 'Time (minutes)' }; // X-axis label
+				layout.xaxis = { title: 'Time (minutes)' };
+				layout.legend = {
+					x: 0,
+					y: 0,
+					xanchor: 'left',
+					yanchor: 'bottom',
+					bgcolor: 'rgba(255, 255, 255, 0.8)',
+					bordercolor: 'black',
+					borderwidth: 1
+				};
 
-                // Modify legend to overlay on the graph
-                layout.legend = {
-                    x: 0,            // Position legend inside the plot area (left side)
-                    y: 0,            // Bottom
-                    xanchor: 'left', // Align legend box to the left
-                    yanchor: 'bottom',   // Align legend box to the bottom
-                    bgcolor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent white background
-                    bordercolor: 'black',                // Optional: border for better visibility
-                    borderwidth: 1                       // Border width
-                };
+				const titleElement = document.querySelector(`#chart-title-${index + 1}`);
+				if (titleElement) {
+					const bepText = (bep !== undefined && bep !== null) ? bep : "N/A";
+					titleElement.textContent = `${name} (${n} stocks) - BEP: ${bepText} €`;
+				}
 
-                // Update the chart title using the unique identifier
-                const titleElement = document.querySelector(`#chart-title-${index + 1}`);
-                if (titleElement) {
-                    titleElement.textContent = name + " (" + n + " stocks) - BEP: " + bep + " €";  // Set the new title
-                }
+				Plotly.newPlot(elementId, traces, layout, config);
+			}
 
-                Plotly.newPlot(elementId, traces, layout, config);
-            }
-
-            // Loop through each graph and initialize it
-            graphData.forEach((data, index) => {
-                initPlotlyGraph(index, `plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.x3, data.price_trend_5min, data.price_trend_15min, data.threshold_buy, data.threshold_sell, data.n, data.name, data.bep);
-            });
-        }
+			graphData.forEach((item, index) => {
+				initPlotlyGraph(
+					index,
+					`plotly-graph-${index + 1}`,
+					item.x,
+					item.y,
+					item.x2,
+					item.x3,
+					item.price_trend_5min,
+					item.price_trend_15min,
+					item.threshold_buy,
+					item.threshold_sell,
+					item.n,
+					item.name,
+					item.bep
+				);
+			});
+		}
 
         // Attach event listener to the refresh button
         document.getElementById("refresh-btn").addEventListener("click", fetchData);
