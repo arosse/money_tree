@@ -369,7 +369,7 @@
             };
 
             // Function to initialize each Plotly graph
-            function initPlotlyGraph(index, elementId, dataX, dataY, dataX2, dataX3, dataTrend5min, dataTrend15min, dataBuyLimit, dataSellLimit, n, name) {         
+            function initPlotlyGraph(index, elementId, dataX, dataY, dataX2, dataX3, dataTrend5min, dataTrend15min, dataBuyLimit, dataSellLimit, n, name, bep) {         
                 // Trace for the main price plot
                 const tracePrice = {
                     x: dataX,
@@ -444,7 +444,7 @@
                 // Update the chart title using the unique identifier
                 const titleElement = document.querySelector(`#chart-title-${index + 1}`);
                 if (titleElement) {
-                    titleElement.textContent = name + " (" + n + " stocks)";  // Set the new title
+                    titleElement.textContent = name + " (" + n + " stocks) - BEP: " + bep + " €";  // Set the new title
                 }
 
                 Plotly.newPlot(elementId, traces, layout, config);
@@ -452,7 +452,7 @@
 
             // Loop through each graph and initialize it
             graphData.forEach((data, index) => {
-                initPlotlyGraph(index, `plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.x3, data.price_trend_5min, data.price_trend_15min, data.threshold_buy, data.threshold_sell, data.n, data.name);
+                initPlotlyGraph(index, `plotly-graph-${index + 1}`, data.x, data.y, data.x2, data.x3, data.price_trend_5min, data.price_trend_15min, data.threshold_buy, data.threshold_sell, data.n, data.name, data.bep);
             });
         }
 
