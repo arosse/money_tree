@@ -314,45 +314,23 @@
 		}
 
         // Function to update the graphs with the new data
-        function updateGraphs(data) {
-            const graphData = [
-                { x: data.data_01.x, y: data.data_01.y, title: data.data_01.name, x2: data.data_01.x2, 
-                  x3: data.data_01.x3, price_trend_5min: data.data_01.price_trend_5min, price_trend_15min: data.data_01.price_trend_15min, 
-                  threshold_buy: data.data_01.threshold_buy, threshold_sell: data.data_01.threshold_sell, 
-                  n: data.data_01.n, name: data.data_01.name 
-                },
-                { x: data.data_02.x, y: data.data_02.y, title: data.data_02.name, x2: data.data_02.x2, 
-                  x3: data.data_02.x3, price_trend_5min: data.data_02.price_trend_5min, price_trend_15min: data.data_02.price_trend_15min, 
-                  threshold_buy: data.data_02.threshold_buy, threshold_sell: data.data_02.threshold_sell, 
-                  n: data.data_02.n, name: data.data_02.name 
-                },
-                { x: data.data_03.x, y: data.data_03.y, title: data.data_03.name, x2: data.data_03.x2, 
-                  x3: data.data_03.x3, price_trend_5min: data.data_03.price_trend_5min, price_trend_15min: data.data_03.price_trend_15min,  
-                  threshold_buy: data.data_03.threshold_buy, threshold_sell: data.data_03.threshold_sell, 
-                  n: data.data_03.n, name: data.data_03.name 
-                },
-                { x: data.data_04.x, y: data.data_04.y, title: data.data_04.name, x2: data.data_04.x2, 
-                  x3: data.data_04.x3, price_trend_5min: data.data_04.price_trend_5min, price_trend_15min: data.data_04.price_trend_15min,  
-                  threshold_buy: data.data_04.threshold_buy, threshold_sell: data.data_04.threshold_sell, 
-                  n: data.data_04.n, name: data.data_04.name 
-                },
-                { x: data.data_05.x, y: data.data_05.y, title: data.data_05.name, x2: data.data_05.x2, 
-                  x3: data.data_05.x3, price_trend_5min: data.data_05.price_trend_5min, price_trend_15min: data.data_05.price_trend_15min,  
-                  threshold_buy: data.data_05.threshold_buy, threshold_sell: data.data_05.threshold_sell, 
-                  n: data.data_05.n, name: data.data_05.name 
-                },
-                { x: data.data_06.x, y: data.data_06.y, title: data.data_06.name, x2: data.data_06.x2, 
-                  x3: data.data_06.x3, price_trend_5min: data.data_06.price_trend_5min, price_trend_15min: data.data_06.price_trend_15min,  
-                  threshold_buy: data.data_06.threshold_buy, threshold_sell: data.data_06.threshold_sell, 
-                  n: data.data_06.n, name: data.data_06.name 
-                },
-                { x: data.data_07.x, y: data.data_07.y, title: data.data_07.name, x2: data.data_07.x2, 
-                  x3: data.data_07.x3, price_trend_5min: data.data_07.price_trend_5min, price_trend_15min: data.data_07.price_trend_15min,  
-                  threshold_buy: data.data_07.threshold_buy, threshold_sell: data.data_07.threshold_sell, 
-                  n: data.data_07.n, name: data.data_07.name 
-                }
-            ];
-
+        const graphData = Array.from({ length: 7 }, (_, i) => {
+			const d = data[`data_0${i + 1}`];
+			return {
+				x: d.x,
+				y: d.y,
+				title: d.name,
+				x2: d.x2,
+				x3: d.x3,
+				price_trend_5min: d.price_trend_5min,
+				price_trend_15min: d.price_trend_15min,
+				threshold_buy: d.threshold_buy,
+				threshold_sell: d.threshold_sell,
+				n: d.n,
+				name: d.name,
+				bep: d.bep
+			};
+		});
             // Reusable layout and config for Plotly
             const layout = {
                 margin: {
